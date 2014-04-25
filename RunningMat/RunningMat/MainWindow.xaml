@@ -1,0 +1,44 @@
+﻿<Window x:Class="RunningMat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
+        Title="MainWindow" Height="800" Width="1000" Loaded="Window_Loaded">
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="230*"></RowDefinition>
+            <RowDefinition Height="89*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid x:Name="MainWindow1" Grid.Row="0" ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition Width="36*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="40">
+                <Button x:Name="LoadData" Margin="0,0,0,10" Content="Load data" Click="LoadData_Click"/>
+                <Button x:Name="Start" Margin="0,0,0,10" Content="Start" Click="Start_Click" />
+                <Button x:Name="Pause" Margin="0,0,0,10" Content="Pause" Click="Pause_Click" />
+                <Button x:Name="Stop"  Margin="0,0,0,20" Content="Stop" Click="Stop_Click" />
+                <TextBlock TextWrapping="Wrap"><Run Text="Samplefrequentie "/><LineBreak/><Run Text="angle data in (samples/sec)"/></TextBlock>
+                <TextBox x:Name="SampleRate"  Margin="0,0,0,20" TextWrapping="Wrap" Text="{Binding SampleFrequentie, Mode=TwoWay}"/>
+                <TextBlock x:Name="FrameRate">FrameRate</TextBlock>
+                <Slider Value="{Binding FrameRate, Mode=TwoWay}" x:Name="SpeedVideo" Maximum="3"/>
+            </StackPanel>
+            <WindowsFormsHost x:Name="WindowVLC" Grid.Column="1"  />
+        </Grid>
+        <TextBlock x:Name="XValue" HorizontalAlignment="Left" Margin="246,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding InputPotentiometerX}" VerticalAlignment="Top"></TextBlock>
+        <TextBlock x:Name="YValue" HorizontalAlignment="Left" Margin="246,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding InputPotentiometerY}" VerticalAlignment="Top"></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="155,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Input Y Axis" VerticalAlignment="Top" Width="69"/>
+        <TextBlock HorizontalAlignment="Left" Margin="155,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Input X Axis" VerticalAlignment="Top" Width="69"/>
+        <TextBlock HorizontalAlignment="Left" Margin="509,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Go to XAngle" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="509,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Go to YAngle" VerticalAlignment="Top"/>
+        <TextBlock x:Name="XAngle" HorizontalAlignment="Left" Margin="622,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding XAngle}" VerticalAlignment="Top"/>
+        <TextBlock x:Name="YAngle" HorizontalAlignment="Left" Margin="622,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding YAngle}" VerticalAlignment="Top"/>
+        <TextBlock x:Name="speed" HorizontalAlignment="Left" Margin="820,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding TestSlider}" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="751,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Speed" VerticalAlignment="Top"/>
+        <Slider x:Name="testslider" HorizontalAlignment="Left"  Margin="389,137,0,0" Grid.Row="1" VerticalAlignment="Top" Width="305" Value="{Binding TestSlider, StringFormat=2N}" LargeChange="0.1" Minimum="-96" Maximum="260"/>
+        <Slider HorizontalAlignment="Left" Margin="389,184,0,0" Grid.Row="1" VerticalAlignment="Top" Width="305"/>
+        <Button Content="Test" HorizontalAlignment="Left" Margin="728,137,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+
+
+    </Grid>
+</Window>

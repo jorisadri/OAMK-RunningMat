@@ -1,0 +1,4 @@
+C:\Users\joris\Documents\Visual Studio 2012\Projects\RunningMat\RunningMat\bin\Release\RunningMat.exe.config
+C:\Users\joris\Documents\Visual Studio 2012\Projects\RunningMat\RunningMat\obj\Release\Interop.AXVLC.dll
+C:\Users\joris\Documents\Visual Studio 2012\Projects\RunningMat\RunningMat\obj\Release\AxInterop.AXVLC.dll
+C:\Users\joris\Documents\Visual Studio 2012\Projects\RunningMat\RunningMat\obj\Release\RunningMat.csproj.ResolveComReference.cache
