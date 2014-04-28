@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using AxAXVLC;
 using AXVLC;
 using System.Threading;
+using System.Windows.Media;
+using System.Windows.Controls;
+using System.Windows;
 
 
 
@@ -13,56 +16,74 @@ namespace RunningMat
 {
    public class Video:BaseClass
     {
-       public AxVLCPlugin2 vlc=new AxVLCPlugin2();
-  
+       
 
-      public TimeSpan LenghtMovie; 
+       private MediaElement _movie;
+       public double TotalMovieTime;
+
+       public TimeSpan LenghtMovie; 
        public double SampleFrequenty;
+       public double Time;
+       
             
 
         private double _framerate=1;
         public double FrameRate  
         {
             get { return _framerate; }
-            set { _framerate = value; RaisePropChanged("FrameRate"); }
+            set { _framerate = value; _movie.SpeedRatio = FrameRate; RaisePropChanged("FrameRate"); }
+        }
+
+        private Uri VideoFile;
+       
+
+        public MediaElement Movie
+        {
+            get { return _movie; }
         }
 
 
         public Video()
         {
+            _movie= new MediaElement();
+            _movie.LoadedBehavior = MediaState.Manual;
+            _movie.UnloadedBehavior = MediaState.Manual;
+            _movie.MediaOpened += _movie_MediaOpened;
             
-    
+           
         }
+
+       
+
+        void _movie_MediaOpened(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+            TotalMovieTime = _movie.NaturalDuration.TimeSpan.TotalMilliseconds;
+            App.Excel.Samplerate();
+        }
+        
 
 
             public void LoadVideo()
             {
                 //http://zahidakbar.wordpress.com/2011/06/27/using-the-vlc-activex-control-in-wpf/ 
-                vlc.playlist.stop();
+                //http://weblogs.asp.net/jdanforth/archive/2012/12/14/binding-mediaelement-to-a-viewmodel-in-a-windows-8-store-app.aspx
+               
 
                 string local = Path("Movie(.mp4)|*.mp4|All files(*.*)|*.*");
                 if (local != "")
                 {
 
-                    vlc.playlist.add("file:///" + local);
-
-                   // vlc.playlist.add("file:///" + local, null, AXVLC.VLCPlaylistMode.VLCPlayListReplaceAndGo, 0);
+                  
+                    VideoFile = new Uri(local);
+                    _movie.Source = VideoFile;
+                    
 
                     
                 }
             }
 
-            public void Play()
-            {
-                
-                // bad code but input.lenght is to slow to give lenght off movie. 
-                vlc.playlist.play();
-                Thread.Sleep(150);
-                vlc.playlist.togglePause();
-                LenghtMovie = TimeSpan.FromMilliseconds(vlc.input.Length);
-                vlc.playlist.stop();
-                vlc.playlist.play();
-            }
+          
 
            
 

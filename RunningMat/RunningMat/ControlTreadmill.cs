@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RunningMat
 {
@@ -15,8 +16,8 @@ namespace RunningMat
         int XChannel = 0;
         ushort XMotorControlerFreq=65000;
         bool Ready = false;
-        double[,] posi = new double[2,10000];
-
+        public double[,] posi = new double[2,10000];
+ 
         double TimeStampX;
         int Position;
         MccDaq.Range TheRange = new MccDaq.Range();
@@ -66,12 +67,16 @@ namespace RunningMat
         {
 
             TimeNowX++;
-            TimeStampX=App.VLCVideo.vlc.input.Time;
+            // Because the movie is running on another thread with this code you run the function on the UI thread (current trhead) 
+            //http://stackoverflow.com/questions/11625208/accessing-ui-main-thread-safely-in-wpf
+            Application.Current.Dispatcher.Invoke(new Action(() => { TimeStampX = App.VLCVideo.Movie.Position.TotalMilliseconds; }));
+            
+           // App.VLCVideo.gettime();
             Position=Convert.ToInt32(TimeStampX/(1000/Convert.ToDouble(App.Excel.SampleFrequentie)));
-            App.DataPotentiometer.GetDataX.RunWorkerAsync();
+           // App.DataPotentiometer.GetDataX.RunWorkerAsync();
 
-            posi[0,TimeNowX] = Position;
-            posi[1, TimeNowX] = TimeStampX;
+            //posi[0,TimeNowX] = Position;
+            //posi[1, TimeNowX] = TimeStampX;
           
 
             App.Excel.XAngle = App.Excel.xlInfo[0, Position];

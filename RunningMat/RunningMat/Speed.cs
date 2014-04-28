@@ -21,12 +21,22 @@ namespace RunningMat
 
         public Speed()
         {
-            SerialPortArduino = new System.IO.Ports.SerialPort();
-            GetSpeedTimer = new DispatcherTimer();
-            GetSpeedTimer.Interval = TimeSpan.FromMilliseconds(20);
-            GetSpeedTimer.Tick += GetSpeedTimer_Tick;
-            SerialPortArduino.PortName = "COM4";
-            SerialPortArduino.Open();
+            try
+            {
+                SerialPortArduino = new System.IO.Ports.SerialPort();
+                GetSpeedTimer = new DispatcherTimer();
+                GetSpeedTimer.Interval = TimeSpan.FromMilliseconds(20);
+                GetSpeedTimer.Tick += GetSpeedTimer_Tick;
+                SerialPortArduino.PortName = "COM4";
+                SerialPortArduino.Open();
+
+            }
+            catch (Exception)
+            {
+                
+                
+            }
+           
             
 
         }

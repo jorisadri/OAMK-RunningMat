@@ -52,7 +52,7 @@ namespace RunningMat
 
         void Updater_Tick(object sender, EventArgs e)
         {
-            VLCVideo.vlc.input.rate = VLCVideo.FrameRate;
+           // VLCVideo.vlc.input.rate = VLCVideo.FrameRate;
             
 
         }

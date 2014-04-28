@@ -81,7 +81,7 @@ namespace RunningMat
 
         public void Samplerate()
         {
-           SampleFrequentie = (1 / ((App.VLCVideo.LenghtMovie.TotalMilliseconds / 1000) / TotalSamples)).ToString();
+           SampleFrequentie = (1 / ((App.VLCVideo.TotalMovieTime / 1000) / TotalSamples)).ToString();
         }
 
 

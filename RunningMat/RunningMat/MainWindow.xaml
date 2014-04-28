@@ -15,15 +15,17 @@
             </Grid.ColumnDefinitions>
             <StackPanel Margin="40">
                 <Button x:Name="LoadData" Margin="0,0,0,10" Content="Load data" Click="LoadData_Click"/>
-                <Button x:Name="Start" Margin="0,0,0,10" Content="Start" Click="Start_Click" />
+                <Button x:Name="Start" Margin="0,0,0,10"  Content="Start" Click="Start_Click" />
                 <Button x:Name="Pause" Margin="0,0,0,10" Content="Pause" Click="Pause_Click" />
                 <Button x:Name="Stop"  Margin="0,0,0,20" Content="Stop" Click="Stop_Click" />
                 <TextBlock TextWrapping="Wrap"><Run Text="Samplefrequentie "/><LineBreak/><Run Text="angle data in (samples/sec)"/></TextBlock>
                 <TextBox x:Name="SampleRate"  Margin="0,0,0,20" TextWrapping="Wrap" Text="{Binding SampleFrequentie, Mode=TwoWay}"/>
                 <TextBlock x:Name="FrameRate">FrameRate</TextBlock>
                 <Slider Value="{Binding FrameRate, Mode=TwoWay}" x:Name="SpeedVideo" Maximum="3"/>
+                <TextBox x:Name="framerate" Height="23" Text="{Binding FrameRate, Mode=TwoWay}" TextWrapping="Wrap"/>
             </StackPanel>
-            <WindowsFormsHost x:Name="WindowVLC" Grid.Column="1"  />
+            <ContentControl x:Name="Film" Grid.Column="1" Content="{Binding Movie}"></ContentControl>
+            <!--<MediaElement x:Name="Movie" Grid.Column="1" LoadedBehavior="Manual" Source="{Binding VideoFile}"  HorizontalAlignment="Center"  VerticalAlignment="Center" />-->
         </Grid>
         <TextBlock x:Name="XValue" HorizontalAlignment="Left" Margin="246,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding InputPotentiometerX}" VerticalAlignment="Top"></TextBlock>
         <TextBlock x:Name="YValue" HorizontalAlignment="Left" Margin="246,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding InputPotentiometerY}" VerticalAlignment="Top"></TextBlock>

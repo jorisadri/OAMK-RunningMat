@@ -17,6 +17,7 @@ using Microsoft.Win32;
 using ExcelLibrary;
 using ExcelLibrary.SpreadSheet;
 using System.Threading;
+using System.IO;
 
 namespace RunningMat
 {
@@ -62,39 +63,63 @@ namespace RunningMat
             SampleRate.DataContext = App.Excel;
             XAngle.DataContext = App.Excel;
             YAngle.DataContext = App.Excel;
-            speed.DataContext = App.controltreadmill;
+            //speed.DataContext = App.controltreadmill;
             SpeedVideo.DataContext = App.VLCVideo;
             testslider.DataContext = App.controltreadmill;
-
+            Film.DataContext = App.VLCVideo;
+            framerate.DataContext = App.VLCVideo;
+           
             
         }
 
         private void LoadData_Click(object sender, RoutedEventArgs e)
         {
+           // App.VLCVideo.LoadVideo();
+           // App.Excel.GetExcel();
+
+            //binding with MediaElement almost imposible. 
+            //Movie.Source = new Uri(App.VLCVideo.Path("Movie(.mp4)|*.mp4|All files(*.*)|*.*"));
+           // App.SpeedTreadmill.SerialPortArduino.Open();
+
+            
             App.VLCVideo.LoadVideo();
             App.Excel.GetExcel();
-           // App.SpeedTreadmill.SerialPortArduino.Open();
-        }
 
-        void VLCPlayerLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            WindowVLC.Child = App.VLCVideo.vlc;
+                
         }
 
        
+        void VLCPlayerLoaded(object sender, RoutedEventArgs e)
+        {
+            
+            //WindowVLC.Child = App.VLCVideo.vlc;
+        }
+
+        
+          
+
 
        
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            App.VLCVideo.Play();
-            App.Excel.Samplerate();
-            App.controltreadmill.MotorControllerX.RunWorkerAsync();
+            //App.VLCVideo.Play();
+            //App.Excel.Samplerate();
+            //App.controltreadmill.MotorControllerX.RunWorkerAsync();
+
+            if (App.VLCVideo.Movie.IsLoaded)
+            {
+                App.VLCVideo.Movie.Play();
+            }
+            if (!App.controltreadmill.MotorControllerX.IsBusy)
+            {
+               App.controltreadmill.MotorControllerX.RunWorkerAsync(); 
+            }
+             
+            //Movie.Play();
+
             
-          //  App.controltreadmill.MotorControllerX.RunWorkerAsync();
-           
-          
+       
            
            
            
@@ -102,17 +127,18 @@ namespace RunningMat
 
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-          
-            App.VLCVideo.vlc.playlist.togglePause();
-            
-        }
 
+            //App.VLCVideo.vlc.playlist.togglePause();
+            //Movie.Pause();
+            App.VLCVideo.Movie.Pause();
+
+        }
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            App.VLCVideo.vlc.playlist.stop();
-            
-        }
+            //App.VLCVideo.vlc.playlist.stop();
+           App.VLCVideo.Movie.Stop();
 
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             App.controltreadmill.MotorControllerX.RunWorkerAsync();

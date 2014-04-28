@@ -44,3 +44,26 @@ C:\Users\joris\AppData\Roaming\Local Libraries\Local Documents\Visual Studio 201
 C:\Users\joris\AppData\Roaming\Local Libraries\Local Documents\Visual Studio 2012\Projects\RunningMat\RunningMat\obj\Debug\RunningMat.Properties.Resources.resources
 C:\Users\joris\AppData\Roaming\Local Libraries\Local Documents\Visual Studio 2012\Projects\RunningMat\RunningMat\obj\Debug\RunningMat.UserControl1.resources
 C:\Users\joris\AppData\Roaming\Local Libraries\Local Documents\Visual Studio 2012\Projects\RunningMat\RunningMat\obj\Debug\RunningMat.csproj.GenerateResource.Cache
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\RunningMat.exe.config
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\Interop.AXVLC.dll
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\AxInterop.AXVLC.dll
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csproj.ResolveComReference.cache
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.exe
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.pdb
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\RunningMat.exe
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\RunningMat.pdb
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\Sparrow.Chart.Wpf.40.dll
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\Sparrow.Chart.Wpf.40.xml
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\Interop.AXVLC.dll
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\AxInterop.AXVLC.dll
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\MainWindow.baml
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\Window1.baml
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\MainWindow.g.cs
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\Window1.g.cs
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\App.g.cs
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat_MarkupCompile.cache
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.g.resources
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.Properties.Resources.resources
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.UserControl1.resources
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csproj.GenerateResource.Cache
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csprojResolveAssemblyReference.cache
