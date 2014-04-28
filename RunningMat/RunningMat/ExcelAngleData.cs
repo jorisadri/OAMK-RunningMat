@@ -16,7 +16,7 @@ namespace RunningMat
     {
         public string[,] xlInfo;  // var for Excel data
 
-        int time = 0;
+        //int time = 0;
         public int TotalSamples;
         double[] PlotAngles;
 

@@ -116,7 +116,7 @@ namespace RunningMat
                App.controltreadmill.MotorControllerX.RunWorkerAsync(); 
             }
              
-            //Movie.Play();
+           
 
             
        

@@ -27,7 +27,7 @@ namespace RunningMat
                 GetSpeedTimer = new DispatcherTimer();
                 GetSpeedTimer.Interval = TimeSpan.FromMilliseconds(20);
                 GetSpeedTimer.Tick += GetSpeedTimer_Tick;
-                SerialPortArduino.PortName = "COM4";
+                SerialPortArduino.PortName = "COM3";
                 SerialPortArduino.Open();
 
             }

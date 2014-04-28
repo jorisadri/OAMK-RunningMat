@@ -11,7 +11,7 @@ namespace RunningMat
    public class IncomingData:BaseClass
     {
         private MccDaq.MccBoard USB1 = new MccDaq.MccBoard(0);
-        public BackgroundWorker GetDataX = new BackgroundWorker();
+       
         int XChannelin = 0;
         int YChannelin = 1;
 
@@ -38,10 +38,11 @@ namespace RunningMat
 
         public IncomingData()
         {   
-            GetDataX.DoWork+=GetDataX_DoWork;      
+            
         }
 
-        void GetDataX_DoWork(object sender, DoWorkEventArgs e)
+        
+       public void GetDataX()
         {   
  	       USB1.AIn(XChannelin, MccDaq.Range.Bip5Volts, out OutDataValueX);
            USB1.ToEngUnits(MccDaq.Range.Bip5Volts, OutDataValueX, out OutDataValueEngUnitsX);
@@ -70,15 +71,15 @@ namespace RunningMat
             USB1.DConfigPort(MccDaq.DigitalPortType.FifthPortA, MccDaq.DigitalPortDirection.DigitalIn);
             USB1.DBitIn(MccDaq.DigitalPortType.FifthPortA, 1, out triggerY);
 
-            if (triggerX==0||triggerY==0)
-            {
-                App.controltreadmill.MotorStop();
-            }
+            //if (triggerX==0||triggerY==0)
+            //{
+            //    App.controltreadmill.MotorStop();
+            //}
 
 
         }
 
-     //  public void GetDataX()
+    
        
 
           

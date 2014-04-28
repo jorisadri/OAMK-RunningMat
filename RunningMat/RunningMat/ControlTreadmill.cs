@@ -11,16 +11,16 @@ namespace RunningMat
    public class ControlTreadmill:BaseClass
     {
         int TimeNowX;
-        double LasTimeX;
-        double TimechangeX;
+       // double LasTimeX;
+       // double TimechangeX;
         int XChannel = 0;
         ushort XMotorControlerFreq=65000;
-        bool Ready = false;
+        // bool Ready = false;
         public double[,] posi = new double[2,10000];
  
         double TimeStampX;
         int Position;
-        MccDaq.Range TheRange = new MccDaq.Range();
+        //MccDaq.Range TheRange = new MccDaq.Range();
  
         MccDaq.DigitalPortDirection PortDirection = MccDaq.DigitalPortDirection.DigitalOut;
       
@@ -67,22 +67,26 @@ namespace RunningMat
         {
 
             TimeNowX++;
-            // Because the movie is running on another thread with this code you run the function on the UI thread (current trhead) 
+            // Because the movie is running on another thread with this code you run the function on the UI thread (current thread) 
             //http://stackoverflow.com/questions/11625208/accessing-ui-main-thread-safely-in-wpf
             Application.Current.Dispatcher.Invoke(new Action(() => { TimeStampX = App.VLCVideo.Movie.Position.TotalMilliseconds; }));
             
-           // App.VLCVideo.gettime();
+           
             Position=Convert.ToInt32(TimeStampX/(1000/Convert.ToDouble(App.Excel.SampleFrequentie)));
-           // App.DataPotentiometer.GetDataX.RunWorkerAsync();
+           
+            App.DataPotentiometer.GetDataX();
+            App.DataPotentiometer.GetDataY();
+         
+           
 
             //posi[0,TimeNowX] = Position;
             //posi[1, TimeNowX] = TimeStampX;
           
-
+            
             App.Excel.XAngle = App.Excel.xlInfo[0, Position];
 
            
-            //App.DataPotentiometer.SafeTrigger();
+            App.DataPotentiometer.SafeTrigger();
 
 
             if (Convert.ToDouble(App.Excel.XAngle) < App.DataPotentiometer.InputPotentiometerX - 1)
