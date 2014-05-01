@@ -7,15 +7,15 @@ The program steers the 2 motors and gets information from potentiometers, speed 
 The program is made in WPF, it was originally written in Visual basic. 
 
 Work in progress: 
-                  Safetrigger controll
-                  angledata visualisation 
-                  adjuster for the angledata 
-                  error handling 
-                  documentation 
+                  Safetrigger controll,
+                  angledata visualisation, 
+                  adjuster for the angledata, 
+                  error handling, 
+                  documentation
                   
 Done:         
-                  videoplayback 
-                  load angledata
+                  videoplayback, 
+                  load angledata,
                   controll tilting
                   
                   
