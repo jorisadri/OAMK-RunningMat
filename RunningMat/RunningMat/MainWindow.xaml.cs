@@ -18,6 +18,9 @@ using ExcelLibrary;
 using ExcelLibrary.SpreadSheet;
 using System.Threading;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
+
+
 
 namespace RunningMat
 {
@@ -26,38 +29,15 @@ namespace RunningMat
     /// </summary>
     public partial class MainWindow : Window
     {
-       /// AxVLCPlugin vlc;
-       // Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
-
-        // USB ports for Potentiometer values
-        private MccDaq.MccBoard USB1 = new MccDaq.MccBoard(0);
-        
-
+       
        // https://sparrowtoolkit.codeplex.com
 
-        //Channel
-        //int XChannelin = 0;
-        //MccDaq.Range TheRange;
-        //double InputX;
-
-       // private  MccDaq.DigitalPortDirection DigitalIn;
-       // private MccDaq.DigitalPortType PortType;
-
-       // private MccDaq.DigitalPortDirection DigitalOut;
-       // private MccDaq.DigitalPortType PortOne;
-       // private MccDaq.DigitalPortType PortTwo;
-       // private MccDaq.DigitalPortType PortTree;
-       // private MccDaq.DigitalPortType PortFour;
-
-       //// private int ADResolution, NumAIChans, HighChan;
-       
-
-       
 
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += new RoutedEventHandler(VLCPlayerLoaded);
+          
+           
             XValue.DataContext = App.DataPotentiometer;
             YValue.DataContext = App.DataPotentiometer;
             SampleRate.DataContext = App.Excel;
@@ -68,75 +48,51 @@ namespace RunningMat
             testslider.DataContext = App.controltreadmill;
             Film.DataContext = App.VLCVideo;
             framerate.DataContext = App.VLCVideo;
-           
+            
+
             
         }
 
         private void LoadData_Click(object sender, RoutedEventArgs e)
         {
-           // App.VLCVideo.LoadVideo();
-           // App.Excel.GetExcel();
-
-            //binding with MediaElement almost imposible. 
-            //Movie.Source = new Uri(App.VLCVideo.Path("Movie(.mp4)|*.mp4|All files(*.*)|*.*"));
-           // App.SpeedTreadmill.SerialPortArduino.Open();
-
             
             App.VLCVideo.LoadVideo();
             App.Excel.GetExcel();
+            Start.IsEnabled = true;
 
-                
         }
-
-       
-        void VLCPlayerLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            //WindowVLC.Child = App.VLCVideo.vlc;
-        }
-
-        
-          
-
-
-       
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            //App.VLCVideo.Play();
-            //App.Excel.Samplerate();
-            //App.controltreadmill.MotorControllerX.RunWorkerAsync();
-
-            if (App.VLCVideo.Movie.IsLoaded)
-            {
-                App.VLCVideo.Movie.Play();
-            }
-            if (!App.controltreadmill.MotorControllerX.IsBusy)
-            {
-               App.controltreadmill.MotorControllerX.RunWorkerAsync(); 
-            }
-             
-           
-
-            
-       
-           
-           
-           
+                if (App.VLCVideo.Movie.IsLoaded && !App.controltreadmill.MotorControllerX.IsBusy)
+                {
+                    App.VLCVideo.Movie.Play();
+                    App.controltreadmill.MotorControllerX.RunWorkerAsync();
+                    Stop.IsEnabled = true;
+                    Start.IsEnabled = false;
+                }
         }
 
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
 
-            //App.VLCVideo.vlc.playlist.togglePause();
-            //Movie.Pause();
             App.VLCVideo.Movie.Pause();
+            
+            Pause.IsEnabled = false;
+            Start.IsEnabled = true;
+           
+            
+
+           
 
         }
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            //App.VLCVideo.vlc.playlist.stop();
+            
            App.VLCVideo.Movie.Stop();
+           Start.IsEnabled = true;
+          
+          
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)

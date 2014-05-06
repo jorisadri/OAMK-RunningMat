@@ -14,6 +14,11 @@ namespace RunningMat
 {
    public class ExcelAngleData:BaseClass
     {
+       //link to the site were i found the chart
+       //http://stackoverflow.com/questions/2377862/embedding-winforms-graph-in-wpf-window
+
+       
+
         public string[,] xlInfo;  // var for Excel data
 
         //int time = 0;
@@ -40,16 +45,12 @@ namespace RunningMat
             set { _Yangle = value; RaisePropChanged("YAngle"); }
         }
 
-        public ExcelAngleData() 
-        {
-           
-        }
 
         public void GetExcel()
         {
             try
             {
-                //NextAngleTimer.Interval = TimeSpan.FromMilliseconds(1000 / Convert.ToDouble(SampleFrequentie));
+                
                 //https://code.google.com/p/excellibrary/
 
                 Workbook book = Workbook.Load(Path("Excel(.xls)|*.xls|All files(*.*)|*.*"));
@@ -61,9 +62,32 @@ namespace RunningMat
 
                 for (int i = 0; i < sheet.Cells.LastRowIndex; i++)
                 {
+                    
                     xlInfo[0, i] = Convert.ToString(sheet.Cells[i+1, 0]);
+                    if (Convert.ToDouble(xlInfo[0, i]) > 10)
+                    {
+                        xlInfo[0, i] = "10";
+                    }
+
+                    else if (Convert.ToDouble(xlInfo[0, i]) < -11)
+                    {
+                         xlInfo[0, i] = "-11";
+                    }
+
+                    
                     xlInfo[1, i] = Convert.ToString(sheet.Cells[i, 1]);
+                    if (Convert.ToDouble(xlInfo[1, i]) > 6)
+                    {
+                        xlInfo[1, i] = "6";
+                    }
+
+                    else if (Convert.ToDouble(xlInfo[1, i]) < -6)
+                    {
+                        xlInfo[1, i] = "-6";
+                    }
+                   
                     PlotAngles[i+1] = Math.Tan(Convert.ToDouble(xlInfo[0, i])) + PlotAngles[i];
+                    
 
                 }
 
@@ -83,23 +107,6 @@ namespace RunningMat
         {
            SampleFrequentie = (1 / ((App.VLCVideo.TotalMovieTime / 1000) / TotalSamples)).ToString();
         }
-
-
-        //void NextAngleTimer_Tick(object sender, EventArgs e)
-        //{
-        //    if (time < (xlInfo.Length/2)-1)
-        //        time++;
-            
-        //    else
-        //        time = 0;
-            
-        //    XAngle = xlInfo[0, time];
-        //    YAngle = xlInfo[1, time];
-
-           
-        //    NextAngleTimer.Interval = TimeSpan.FromMilliseconds(1000/Convert.ToDouble(SampleFrequentie));
-           
-        //}
 
     }
 }

@@ -79,18 +79,21 @@ namespace RunningMat
 
         }
 
-    
-       
-
-          
-           
-       
-
        public void GetDataY()
        {
            USB1.AIn(YChannelin, MccDaq.Range.Bip5Volts, out OutDataValueY);
            USB1.ToEngUnits(MccDaq.Range.Bip5Volts, OutDataValueY, out OutDataValueEngUnitsY);
            InputPotentiometerY = OutDataValueEngUnitsY * 100;
+
+           if (InputPotentiometerY > 76)
+           {
+               InputPotentiometerY = Map(InputPotentiometerY, 76, 88, 0, -6);
+           }
+
+           else if (InputPotentiometerY<=76)
+           {
+               InputPotentiometerY = Map(InputPotentiometerY, 76, 68, 0, 6);
+           }
        }
         
     }

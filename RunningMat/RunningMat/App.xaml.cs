@@ -23,11 +23,15 @@ namespace RunningMat
         public static Speed SpeedTreadmill = new Speed();
         public static ControlTreadmill Steering = new ControlTreadmill();
         public static ControlTreadmill controltreadmill = new ControlTreadmill();
+       
+
+      
+
 
         public App()
         {
              MotorUpdate = new DispatcherTimer();
-            Updater.Interval = TimeSpan.FromMilliseconds(200);
+            Updater.Interval = TimeSpan.FromMilliseconds(70);
             Updater.Tick += Updater_Tick;
             Updater.Start();
 
@@ -53,6 +57,7 @@ namespace RunningMat
         void Updater_Tick(object sender, EventArgs e)
         {
            // VLCVideo.vlc.input.rate = VLCVideo.FrameRate;
+           //DataPotentiometer.GetDataY();
             
 
         }

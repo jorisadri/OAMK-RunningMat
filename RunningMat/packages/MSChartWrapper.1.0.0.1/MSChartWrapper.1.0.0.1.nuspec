@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MSChartWrapper</id>
+    <version>1.0.0.1</version>
+    <title>MSChartWrapper</title>
+    <authors>Sina Iravanian</authors>
+    <owners>Sina Iravanian</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/sinairv/MSChartWrapper</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MSChartWrapper is a wrapper around Microsoft chart control for Win32. If you wish to create a simple line-chart or column-chart but do not want to dive into the API for Microsoft Chart Control, this is for you. 
+Its API enables one to easily plot a series with a few function calls, or pop the chart in a window as easily as showing a message-box.
+In terms of UI, it adds a side-legend with check-boxes, so that you can choose what series to show and what series to hide. It also adds a context menu to the chart area so that one can easily show or hide chart legends, and save the plot to an image file. It also supports saving a plot to a Matlab .m file.</description>
+    <summary>A Wrapper Around Microsoft Chart Control for Win32</summary>
+    <tags>Chart Plot Microsoft-Chart Line-Chart Bar-Chart Column-Chart</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.Windows.Forms.DataVisualization.Design" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.Windows.Forms.DataVisualization" targetFramework=".NETFramework4.0" />
+    </frameworkAssemblies>
+    <references>
+      <reference file="MSChartWrapper.dll" />
+    </references>
+  </metadata>
+</package>

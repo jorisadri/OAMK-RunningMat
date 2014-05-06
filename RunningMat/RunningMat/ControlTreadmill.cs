@@ -14,14 +14,15 @@ namespace RunningMat
        // double LasTimeX;
        // double TimechangeX;
         int XChannel = 0;
-        ushort XMotorControlerFreq=65000;
+        int YChannel = 1;
+        ushort XMotorControlerFreq = 65500;
+        ushort YMotorControlerFreq = 65500;
         // bool Ready = false;
         public double[,] posi = new double[2,10000];
  
         double TimeStampX;
         int Position;
-        //MccDaq.Range TheRange = new MccDaq.Range();
- 
+     
         MccDaq.DigitalPortDirection PortDirection = MccDaq.DigitalPortDirection.DigitalOut;
       
         MccDaq.DigitalLogicState HighLogicState = MccDaq.DigitalLogicState.High;
@@ -36,7 +37,7 @@ namespace RunningMat
         public BackgroundWorker MotorControllerX = new BackgroundWorker();
         private MccDaq.MccBoard USBControler = new MccDaq.MccBoard(1);
 
-        private double _testslider = 93.0;
+        private double _testslider = 0.0;
         public double TestSlider
         {
             get { return _testslider; }
@@ -46,10 +47,7 @@ namespace RunningMat
 
         public ControlTreadmill()
         {
-          ////  PortDirection = new MccDaq.DigitalPortDirection();
-          //  PortDirection= MccDaq.DigitalPortDirection.DigitalOut;
-          //  HighLogicState = MccDaq.DigitalLogicState.High;
-          //  LowLogicState = MccDaq.DigitalLogicState.Low;
+         
 
             MotorControllerX.DoWork += MotorController_DoWork;
             MotorControllerX.RunWorkerCompleted += MotorController_RunWorkerCompleted;
@@ -60,53 +58,68 @@ namespace RunningMat
 
         void MotorController_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            MotorControllerX.RunWorkerAsync();
+
+          
+                MotorControllerX.RunWorkerAsync();
+            
+            
         }
 
         void MotorController_DoWork(object sender, DoWorkEventArgs e)
         {
 
-            TimeNowX++;
+            //if (TestSlider > App.DataPotentiometer.InputPotentiometerY-2)
+            //{
+            //    LeftY();
+            //}
+
+            //else if (TestSlider < App.DataPotentiometer.InputPotentiometerY-2)
+            //{
+            //    RighY();
+
+            //}
+
+            //else
+            //    MotorStopRoll();
+
+            
             // Because the movie is running on another thread with this code you run the function on the UI thread (current thread) 
             //http://stackoverflow.com/questions/11625208/accessing-ui-main-thread-safely-in-wpf
             Application.Current.Dispatcher.Invoke(new Action(() => { TimeStampX = App.VLCVideo.Movie.Position.TotalMilliseconds; }));
-            
-           
-            Position=Convert.ToInt32(TimeStampX/(1000/Convert.ToDouble(App.Excel.SampleFrequentie)));
-           
+
+
+            Position = Convert.ToInt32(TimeStampX / (1000 / Convert.ToDouble(App.Excel.SampleFrequentie)));
+
             App.DataPotentiometer.GetDataX();
             App.DataPotentiometer.GetDataY();
-         
-           
 
-            //posi[0,TimeNowX] = Position;
-            //posi[1, TimeNowX] = TimeStampX;
-          
-            
+
             App.Excel.XAngle = App.Excel.xlInfo[0, Position];
-
-           
-            App.DataPotentiometer.SafeTrigger();
+            App.Excel.YAngle = App.Excel.xlInfo[1, Position];
 
 
             if (Convert.ToDouble(App.Excel.XAngle) < App.DataPotentiometer.InputPotentiometerX - 1)
-            {
-            
-                
                 ForwardX();
-            }
 
             else if (Convert.ToDouble(App.Excel.XAngle) > App.DataPotentiometer.InputPotentiometerX + 1)
-            {
-
                 BackwardX();
-            }
+
             else
-            {
-                MotorStop();
-               // USBControler.AOut(XChannel, MccDaq.Range.Bip10Volts, XMotorControlerFreq);
-                
-            }
+                MotorStopPitch();
+
+
+
+            if (Convert.ToDouble(App.Excel.YAngle) < App.DataPotentiometer.InputPotentiometerY)
+                RighY();
+
+
+            else if (Convert.ToDouble(App.Excel.YAngle) > App.DataPotentiometer.InputPotentiometerY)
+                LeftY();
+
+            else
+                MotorStopRoll();
+
+           
         }
 
        
@@ -131,7 +144,8 @@ namespace RunningMat
 
         }
 
-        public void MotorStop()
+       
+        public void MotorStopPitch()
         {
             USBControler.AOut(XChannel, MccDaq.Range.Bip10Volts, 0);
             USBControler.DConfigBit(PortAux1, 0, PortDirection);
@@ -139,15 +153,37 @@ namespace RunningMat
 
             USBControler.DConfigBit(PortAux2, 1, PortDirection);
             USBControler.DBitOut(PortAux2, 1, LowLogicState);
+        }
 
+        public void MotorStopRoll()
+        {
+            USBControler.AOut(YChannel, MccDaq.Range.Bip10Volts, 0);
             USBControler.DConfigBit(PortAux3, 2, PortDirection);
             USBControler.DBitOut(PortAux3, 2, LowLogicState);
 
             USBControler.DConfigBit(PortAux4, 3, PortDirection);
-            USBControler.DBitOut(PortAux4, 3, LowLogicState);
-
-            
+            USBControler.DBitOut(PortAux4, 3, LowLogicState);  
         }
+
+        public void RighY()
+        {
+            USBControler.DConfigBit(PortAux3, 2, PortDirection);
+            USBControler.DBitOut(PortAux3, 2, HighLogicState);
+            USBControler.DConfigBit(PortAux4, 3, PortDirection);
+            USBControler.DBitOut(PortAux4, 3, LowLogicState);
+            USBControler.AOut(YChannel, MccDaq.Range.Bip10Volts, YMotorControlerFreq);
+        }
+
+        public void LeftY()
+        {
+            USBControler.DConfigBit(PortAux3, 2, PortDirection);
+            USBControler.DBitOut(PortAux3, 2, LowLogicState);
+            USBControler.DConfigBit(PortAux4, 3, PortDirection);
+            USBControler.DBitOut(PortAux4, 3, HighLogicState);
+            USBControler.AOut(YChannel, MccDaq.Range.Bip10Volts, YMotorControlerFreq);
+        }
+
+      
 
 
     }

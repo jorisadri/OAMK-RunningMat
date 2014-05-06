@@ -49,11 +49,7 @@ namespace RunningMat
             _movie.LoadedBehavior = MediaState.Manual;
             _movie.UnloadedBehavior = MediaState.Manual;
             _movie.MediaOpened += _movie_MediaOpened;
-            
-           
         }
-
-       
 
         void _movie_MediaOpened(object sender, System.Windows.RoutedEventArgs e)
         {

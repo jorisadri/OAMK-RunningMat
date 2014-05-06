@@ -20,16 +20,11 @@ namespace RunningMat
         }
 
         
-             public  double Map ( double value, double fromSource, double toSource, double fromTarget, double toTarget)
-              {
-                  return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
-              }
+       public  double Map ( double value, double fromSource, double toSource, double fromTarget, double toTarget)
+        {
+             return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
+        }
 
-      
-        
-       
-
-        
 
        public string Path(string filter)
         {
