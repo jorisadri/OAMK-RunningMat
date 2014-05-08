@@ -26,7 +26,7 @@
                 <TextBox x:Name="Frames" Height="23" Width="auto" Text="X  times the Videospeed" TextWrapping="Wrap"/>
                 </StackPanel>
             </StackPanel>
-            <ContentControl x:Name="Film" Grid.Column="1" Content="{Binding Movie}"></ContentControl>
+            <ContentControl x:Name="Film" Grid.Column="1" Content="{Binding Movie}" MouseDoubleClick="Film_MouseDoubleClick"></ContentControl>
             <!--<MediaElement x:Name="Movie" Grid.Column="1" LoadedBehavior="Manual" Source="{Binding VideoFile}"  HorizontalAlignment="Center"  VerticalAlignment="Center" />-->
         </Grid>
         <TextBlock x:Name="XValue" HorizontalAlignment="Left" Margin="246,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding InputPotentiometerX}" VerticalAlignment="Top"></TextBlock>

@@ -76,6 +76,7 @@ namespace RunningMat
                     VideoFile = new Uri(local);
                     _movie.Source = VideoFile;
                     
+                    
 
                     
                 }

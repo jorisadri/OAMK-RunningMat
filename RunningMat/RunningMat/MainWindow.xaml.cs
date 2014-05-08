@@ -19,6 +19,7 @@ using ExcelLibrary.SpreadSheet;
 using System.Threading;
 using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
+using Xceed.Wpf.AvalonDock.Layout;
 
 
 
@@ -31,6 +32,7 @@ namespace RunningMat
     {
        
        // https://sparrowtoolkit.codeplex.com
+        bool FullScreen = false;
         
 
         public MainWindow()
@@ -58,17 +60,47 @@ namespace RunningMat
             App.controltreadmill.MotorStopPitch();
             App.controltreadmill.MotorStopRoll();
 
-            Closing += MainWindow_Closing;
             
+
+            Closing += MainWindow_Closing;
+
+            App.VLCVideo.Movie.MouseDown += Movie_MouseDown;
+            
+        }
+
+        void Movie_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            object visualWindowContent = new object();
+
+            System.Windows.Controls.Grid content = new System.Windows.Controls.Grid();
+            if (FullScreen == false)
+            {
+
+                visualWindowContent = this.Film;
+                
+                this.Content = App.VLCVideo.Movie;
+                this.WindowStyle = WindowStyle.None;
+                this.WindowState = WindowState.Maximized;
+            }
+
+            else if (FullScreen == true)
+            {
+                //App.VLCVideo.Movie.D
+                this.Content = visualWindowContent;
+
+                this.WindowStyle = WindowStyle.SingleBorderWindow;
+                this.WindowState = WindowState.Normal;
+            }
+            FullScreen = !FullScreen;
         }
 
         void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+                e.Cancel = true;
                 App.controltreadmill.Stop = true;
                 App.controltreadmill.MotorStopPitch();
                 App.controltreadmill.MotorStopRoll();
-
+                e.Cancel = false ;
         }
 
         private void LoadData_Click(object sender, RoutedEventArgs e)
@@ -141,6 +173,16 @@ namespace RunningMat
             
         }
 
+        
+
+        private void Film_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+
+
+      
       
 
    
