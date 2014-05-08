@@ -106,7 +106,6 @@ C:\Users\maasto\Documents\GitHub\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\tr\ZedGraph.resources.dll
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\zh-cn\ZedGraph.resources.dll
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\zh-tw\ZedGraph.resources.dll
-\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csprojResolveAssemblyReference.cache
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\Xceed.Wpf.AvalonDock.dll
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll

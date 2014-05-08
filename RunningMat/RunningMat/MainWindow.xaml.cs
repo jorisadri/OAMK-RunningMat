@@ -31,7 +31,7 @@ namespace RunningMat
     {
        
        // https://sparrowtoolkit.codeplex.com
-
+        
 
         public MainWindow()
         {
@@ -43,22 +43,45 @@ namespace RunningMat
             SampleRate.DataContext = App.Excel;
             XAngle.DataContext = App.Excel;
             YAngle.DataContext = App.Excel;
-            //speed.DataContext = App.controltreadmill;
+            speed.DataContext = App.SpeedTreadmill;
             SpeedVideo.DataContext = App.VLCVideo;
-            testslider.DataContext = App.controltreadmill;
+            testsliderX.DataContext = App.controltreadmill;
+            testsliderY.DataContext = App.controltreadmill;
             Film.DataContext = App.VLCVideo;
-            framerate.DataContext = App.VLCVideo;
-            
+            Multiplier.DataContext = App.VLCVideo;
 
+            Start.IsEnabled = false;
+            Stop.IsEnabled = false;
+            Pause.IsEnabled = false;
+
+
+            App.controltreadmill.MotorStopPitch();
+            App.controltreadmill.MotorStopRoll();
+
+            Closing += MainWindow_Closing;
             
+        }
+
+        void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            
+                App.controltreadmill.Stop = true;
+                App.controltreadmill.MotorStopPitch();
+                App.controltreadmill.MotorStopRoll();
+
         }
 
         private void LoadData_Click(object sender, RoutedEventArgs e)
         {
-            
+            //App.VLCVideo.Movie.Stop();
+            App.controltreadmill.Stop = true;
             App.VLCVideo.LoadVideo();
             App.Excel.GetExcel();
             Start.IsEnabled = true;
+            Stop.IsEnabled = false;
+            Pause.IsEnabled = false;
+            App.controltreadmill.Test = false;
+            
 
         }
 
@@ -70,6 +93,10 @@ namespace RunningMat
                     App.controltreadmill.MotorControllerX.RunWorkerAsync();
                     Stop.IsEnabled = true;
                     Start.IsEnabled = false;
+                    Pause.IsEnabled = true;
+                    App.controltreadmill.Stop = false;
+                    App.SpeedTreadmill.GetSpeedTimer.Start();
+                    App.controltreadmill.Test = false ;
                 }
         }
 
@@ -80,6 +107,8 @@ namespace RunningMat
             
             Pause.IsEnabled = false;
             Start.IsEnabled = true;
+            App.controltreadmill.Stop = true ;
+            App.controltreadmill.Test = false;
            
             
 
@@ -91,14 +120,18 @@ namespace RunningMat
             
            App.VLCVideo.Movie.Stop();
            Start.IsEnabled = true;
-          
+           Pause.IsEnabled = false;
+           Stop.IsEnabled = false;
+           App.controltreadmill.Stop = true;
+           App.controltreadmill.Test = false;
           
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             App.controltreadmill.MotorControllerX.RunWorkerAsync();
-            //App.SpeedTreadmill.GetSpeedTimer.Start();
+            App.SpeedTreadmill.GetSpeedTimer.Start();
+            App.controltreadmill.Test = true;
 
             
         }
@@ -107,6 +140,8 @@ namespace RunningMat
         {
             
         }
+
+      
 
    
     }

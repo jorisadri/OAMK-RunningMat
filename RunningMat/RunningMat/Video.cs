@@ -12,6 +12,7 @@ using System.Windows;
 
 
 
+
 namespace RunningMat
 {
    public class Video:BaseClass
@@ -56,6 +57,7 @@ namespace RunningMat
 
             TotalMovieTime = _movie.NaturalDuration.TimeSpan.TotalMilliseconds;
             App.Excel.Samplerate();
+           
         }
         
 
