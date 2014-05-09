@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using System.Threading;
 using System.Windows;
 using System.Xml.Linq;
+using SensorEmitterServer;
 
 namespace RunningMat
 {
@@ -45,9 +46,25 @@ namespace RunningMat
             set { _Yangle = value; RaisePropChanged("YAngle"); }
         }
 
+        public ExcelAngleData()
+        {
+            var server = new SensorServer<SensorEmitterReading>();
+            server.Start();
+            server.ValuesReceived += (s, e) => { PhoneValues(e.SensorReading.RotationPitch, e.SensorReading.RotationRoll); }; // Everytime new value is present function fires. 
+            
 
+        }
+
+        public void PhoneValues(double Pitch, double Roll)
+        {
+            XAngle = Pitch.ToString();
+            YAngle = Roll.ToString();
+            
+        }
         public void GetExcel()
         {
+            
+
             try
             {
                 

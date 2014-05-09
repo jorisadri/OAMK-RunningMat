@@ -106,6 +106,7 @@
     <Compile Include="ExcelAngleData.cs" />
     <Compile Include="IncomingData.cs" />
     <Compile Include="BaseClass.cs" />
+    <Compile Include="SensorEmitterServer.cs" />
     <Compile Include="Speed.cs" />
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>
