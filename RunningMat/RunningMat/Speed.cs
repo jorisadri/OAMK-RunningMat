@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using System.Threading;
 using System.Windows.Threading;
+using System.Management;
+using System.Windows;
 namespace RunningMat
 {
    public class Speed:BaseClass
@@ -27,19 +29,48 @@ namespace RunningMat
                 GetSpeedTimer = new DispatcherTimer();
                 GetSpeedTimer.Interval = TimeSpan.FromMilliseconds(20);
                 GetSpeedTimer.Tick += GetSpeedTimer_Tick;
-                SerialPortArduino.PortName = "COM3";
+                SerialPortArduino.PortName = AutodetectArduinoPort();
                 SerialPortArduino.Open();
 
             }
             catch (Exception)
             {
-                
+                MessageBox.Show("No Arduino found with PNPDeviceID:64935343733351707252");
+                Environment.Exit(-1);//Shutdown
                 
             }
            
             
 
         }
+
+       private string AutodetectArduinoPort()
+        {
+            ManagementScope connectionScope = new ManagementScope();
+            SelectQuery serialQuery = new SelectQuery("SELECT * FROM Win32_SerialPort");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(connectionScope, serialQuery);
+
+            try
+            {
+                foreach (ManagementObject item in searcher.Get())
+                {
+                    string desc = item["PNPDeviceID"].ToString();
+                    string deviceId = item["DeviceID"].ToString();
+
+                    if (desc.Contains("64935343733351707252"))
+                    {
+                        return deviceId;
+                    }
+                }
+            }
+            catch (ManagementException e)
+            {
+                /* Do Nothing */
+            }
+
+            return null;
+        }
+       
 
         void GetSpeedTimer_Tick(object sender, EventArgs e)
         {
