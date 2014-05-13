@@ -173,6 +173,7 @@ namespace RunningMat
         {
             App.UIController.choise = App.Choise.MakeAngle;
             App.UIController.DoYourThing();
+            App.VLCVideo.Movie.Stop();
             Start.IsEnabled = true;
             Pause.IsEnabled = false;
             Stop.IsEnabled = false;

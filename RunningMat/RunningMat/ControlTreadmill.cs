@@ -147,12 +147,12 @@ namespace RunningMat
             {
 
 
-                 if (TestSliderX > App.DataPotentiometer.InputPotentiometerX + 2)
+                 if (TestSliderX > App.DataPotentiometer.InputPotentiometerX + 1.3)
                     {
                         ForwardX();
                     }
 
-                    else if (TestSliderX < App.DataPotentiometer.InputPotentiometerX - 2)
+                    else if (TestSliderX < App.DataPotentiometer.InputPotentiometerX - 1.3)
                     {
                         BackwardX();
 
@@ -182,7 +182,7 @@ namespace RunningMat
             {
                 // Because the movie is running on another thread with this code you run the function on the UI thread (current thread) 
                 //http://stackoverflow.com/questions/11625208/accessing-ui-main-thread-safely-in-wpf
-               // Application.Current.Dispatcher.Invoke(new Action(() => { TimeStampX = App.VLCVideo.Movie.Position.TotalMilliseconds; }));
+                Application.Current.Dispatcher.Invoke(new Action(() => { TimeStampX = App.VLCVideo.Movie.Position.TotalMilliseconds; }));
 
                 Position = Convert.ToInt32(TimeStampX / (1000 / Convert.ToDouble(App.Excel.SampleFrequentie)));
 

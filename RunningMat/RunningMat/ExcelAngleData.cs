@@ -27,7 +27,7 @@ namespace RunningMat
        string FileName;
 
        public Workbook PhoneData = new Workbook();
-       Worksheet worksheet = new Worksheet("AngleData");
+       Worksheet worksheet;
        public bool PhoneDataExcist = false;
 
         public string[,] xlInfo;  // var for Excel data
@@ -58,6 +58,7 @@ namespace RunningMat
 
         public ExcelAngleData()
         {
+            worksheet = new Worksheet("angles");
             PhoneAngletimer = new DispatcherTimer();
             PhoneAngletimer.Interval = TimeSpan.FromMilliseconds(200);
             PhoneAngletimer.Tick += PhoneAngletimer_Tick;
@@ -70,10 +71,10 @@ namespace RunningMat
             
             if (App.PhoneConnection.started)
             {
-                counter++;
+                
                 worksheet.Cells[counter, 0] = new Cell(App.PhoneConnection.PhonePitch);
                 worksheet.Cells[counter, 1] = new Cell(App.PhoneConnection.PhoneRoll);
-
+                counter++;
             }
 
             
@@ -81,6 +82,7 @@ namespace RunningMat
         }
         public void NewExcel()
         {
+            counter = 0;
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
                 dlg.Description = "Select a folder";
