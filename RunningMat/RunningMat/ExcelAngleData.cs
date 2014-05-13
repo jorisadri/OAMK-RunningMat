@@ -9,6 +9,9 @@ using System.Windows.Threading;
 using System.Threading;
 using System.Windows;
 using System.Xml.Linq;
+using System.Windows.Forms;
+using System.IO;
+
 
 namespace RunningMat
 {
@@ -17,7 +20,15 @@ namespace RunningMat
        //link to the site were i found the chart
        //http://stackoverflow.com/questions/2377862/embedding-winforms-graph-in-wpf-window
 
-       
+
+       public DispatcherTimer PhoneAngletimer;
+       int counter = 0;
+
+       string FileName;
+
+       public Workbook PhoneData = new Workbook();
+       Worksheet worksheet = new Worksheet("AngleData");
+       public bool PhoneDataExcist = false;
 
         public string[,] xlInfo;  // var for Excel data
 
@@ -45,15 +56,68 @@ namespace RunningMat
             set { _Yangle = value; RaisePropChanged("YAngle"); }
         }
 
+        public ExcelAngleData()
+        {
+            PhoneAngletimer = new DispatcherTimer();
+            PhoneAngletimer.Interval = TimeSpan.FromMilliseconds(200);
+            PhoneAngletimer.Tick += PhoneAngletimer_Tick;
 
+            
+        }
+
+        void PhoneAngletimer_Tick(object sender, EventArgs e)
+        {
+            
+            if (App.PhoneConnection.started)
+            {
+                counter++;
+                worksheet.Cells[counter, 0] = new Cell(App.PhoneConnection.PhonePitch);
+                worksheet.Cells[counter, 1] = new Cell(App.PhoneConnection.PhoneRoll);
+
+            }
+
+            
+            
+        }
+        public void NewExcel()
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+            {
+                dlg.Description = "Select a folder";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+
+
+                    FileName = Path.Combine(dlg.SelectedPath, "PhoneAngles" + DateTime.Now.ToString("dd;MM;yyyy;HH,mm,ss") + ".xls");
+
+                }
+            }
+
+            
+            PhoneData.Worksheets.Add(worksheet);
+            PhoneDataExcist = true;
+        }
+
+
+
+        public void Safe()
+        {
+            App.PhoneConnection.started = false;
+            PhoneData.Save(FileName);
+            PhoneDataExcist = false;
+        
+        }
+        
         public void GetExcel()
         {
+            
+
             try
             {
                 
                 //https://code.google.com/p/excellibrary/
 
-                Workbook book = Workbook.Load(Path("Excel(.xls)|*.xls|All files(*.*)|*.*"));
+                Workbook book = Workbook.Load(PathFile("Excel(.xls)|*.xls|All files(*.*)|*.*"));
                 Worksheet sheet = book.Worksheets[0];
                 TotalSamples = sheet.Cells.LastRowIndex;
                 xlInfo = new string[2, TotalSamples];
@@ -97,7 +161,7 @@ namespace RunningMat
             catch (Exception)
             {
 
-                MessageBox.Show("Wrong File. Choose the correct file (Excel .xls)");
+                System.Windows.MessageBox.Show("Wrong File. Choose the correct file (Excel .xls)");
                 GetExcel();
             }
             

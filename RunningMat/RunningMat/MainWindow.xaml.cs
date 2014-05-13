@@ -55,11 +55,14 @@ namespace RunningMat
             Start.IsEnabled = false;
             Stop.IsEnabled = false;
             Pause.IsEnabled = false;
-
+            Pitch.DataContext = App.PhoneConnection;
+            Roll.DataContext = App.PhoneConnection;
+            ControllsystemPot.DataContext = App.controltreadmill;
+            ControllsystemPhone.DataContext = App.controltreadmill;
 
             App.controltreadmill.MotorStopPitch();
             App.controltreadmill.MotorStopRoll();
-
+           
             
 
             Closing += MainWindow_Closing;
@@ -105,42 +108,39 @@ namespace RunningMat
 
         private void LoadData_Click(object sender, RoutedEventArgs e)
         {
-            //App.VLCVideo.Movie.Stop();
-            App.controltreadmill.Stop = true;
-            App.VLCVideo.LoadVideo();
-            App.Excel.GetExcel();
+            
+            App.UIController.status = App.PlayState.Load;
+            App.UIController.choise = App.Choise.Run;
+            App.UIController.DoYourThing();
             Start.IsEnabled = true;
             Stop.IsEnabled = false;
             Pause.IsEnabled = false;
-            App.controltreadmill.Test = false;
+            
             
 
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-                if (App.VLCVideo.Movie.IsLoaded && !App.controltreadmill.MotorControllerX.IsBusy)
-                {
-                    App.VLCVideo.Movie.Play();
-                    App.controltreadmill.MotorControllerX.RunWorkerAsync();
-                    Stop.IsEnabled = true;
-                    Start.IsEnabled = false;
-                    Pause.IsEnabled = true;
-                    App.controltreadmill.Stop = false;
-                    App.SpeedTreadmill.GetSpeedTimer.Start();
-                    App.controltreadmill.Test = false ;
-                }
+            
+            App.UIController.status = App.PlayState.Start;
+            App.UIController.DoYourThing();
+
+                Stop.IsEnabled = true;
+                Start.IsEnabled = false;
+                Pause.IsEnabled = true;
+            
+            
         }
 
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
 
-            App.VLCVideo.Movie.Pause();
-            
+            App.UIController.status = App.PlayState.Pauze;
+            App.UIController.DoYourThing();
             Pause.IsEnabled = false;
             Start.IsEnabled = true;
-            App.controltreadmill.Stop = true ;
-            App.controltreadmill.Test = false;
+           
            
             
 
@@ -149,36 +149,17 @@ namespace RunningMat
         }
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            
-           App.VLCVideo.Movie.Stop();
+
+           App.UIController.status = App.PlayState.Stop;
+           App.UIController.DoYourThing();
            Start.IsEnabled = true;
            Pause.IsEnabled = false;
            Stop.IsEnabled = false;
-           App.controltreadmill.Stop = true;
-           App.controltreadmill.Test = false;
+          
           
 
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            App.controltreadmill.MotorControllerX.RunWorkerAsync();
-            App.SpeedTreadmill.GetSpeedTimer.Start();
-            App.controltreadmill.Test = true;
-
-            
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        
-
-        private void Film_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+       
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -186,6 +167,32 @@ namespace RunningMat
             {
                 App.Current.Shutdown();
             }
+        }
+
+        private void MakeAngleData_Click(object sender, RoutedEventArgs e)
+        {
+            App.UIController.choise = App.Choise.MakeAngle;
+            App.UIController.DoYourThing();
+            Start.IsEnabled = true;
+            Pause.IsEnabled = false;
+            Stop.IsEnabled = false;
+          
+            
+            
+
+        }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            App.UIController.choise = App.Choise.Test;
+            App.UIController.status = App.PlayState.Stop;
+
+            Start.IsEnabled = true;
+            Pause.IsEnabled = false;
+            Stop.IsEnabled = false;
+           
+
+            
         }
 
 

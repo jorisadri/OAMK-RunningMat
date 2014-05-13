@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using System.IO;
 
 namespace RunningMat
 {
@@ -19,14 +20,16 @@ namespace RunningMat
             }
         }
 
-        
+        //http://stackoverflow.com/questions/14353485/how-do-i-map-numbers-in-c-sharp-like-with-map-in-arduino
        public  double Map ( double value, double fromSource, double toSource, double fromTarget, double toTarget)
         {
              return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
+            
         }
+       
+         
 
-
-       public string Path(string filter)
+       public string PathFile(string filter)
         {
             string mrl = "";
             OpenFileDialog ofd = new OpenFileDialog();
@@ -35,6 +38,7 @@ namespace RunningMat
             if (ofd.FileName != "")
             {
                 mrl = ofd.FileName;
+               
             }
             else
             { mrl = ""; }
