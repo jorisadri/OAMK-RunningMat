@@ -50,6 +50,13 @@ namespace RunningMat
             _movie.LoadedBehavior = MediaState.Manual;
             _movie.UnloadedBehavior = MediaState.Manual;
             _movie.MediaOpened += _movie_MediaOpened;
+            _movie.MediaEnded += _movie_MediaEnded;
+        }
+
+        void _movie_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            App.Excel.PhoneAngletimer.Stop();
+            App.Excel.Safe();
         }
 
         void _movie_MediaOpened(object sender, System.Windows.RoutedEventArgs e)
@@ -64,11 +71,11 @@ namespace RunningMat
 
             public void LoadVideo()
             {
-                //http://zahidakbar.wordpress.com/2011/06/27/using-the-vlc-activex-control-in-wpf/ 
+               
                 //http://weblogs.asp.net/jdanforth/archive/2012/12/14/binding-mediaelement-to-a-viewmodel-in-a-windows-8-store-app.aspx
                
 
-                string local = Path("Movie(.mp4)|*.mp4|All files(*.*)|*.*");
+                string local = PathFile("Movie(.mp4)|*.mp4*.mov|All files(*.*)|*.*");
                 if (local != "")
                 {
 

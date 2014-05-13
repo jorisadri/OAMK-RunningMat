@@ -15,6 +15,7 @@ namespace RunningMat
         public DispatcherTimer GetSpeedTimer;
         public System.IO.Ports.SerialPort SerialPortArduino;
         string ReadString;
+        public bool Arduino = false;
         private double _speedKMH = 0;
         public double SpeedKMH {
             get { return _speedKMH; }
@@ -31,12 +32,15 @@ namespace RunningMat
                 GetSpeedTimer.Tick += GetSpeedTimer_Tick;
                 SerialPortArduino.PortName = AutodetectArduinoPort();
                 SerialPortArduino.Open();
+                Arduino = true;
 
             }
             catch (Exception)
             {
                 MessageBox.Show("No Arduino found with PNPDeviceID:64935343733351707252");
-                Environment.Exit(-1);//Shutdown
+                Arduino = false;
+
+               // Environment.Exit(-1);//Shutdown
                 
             }
            
@@ -74,6 +78,7 @@ namespace RunningMat
 
         void GetSpeedTimer_Tick(object sender, EventArgs e)
         {
+         
             int IndexOfNonNummeric = -1;
             if (SerialPortArduino.BytesToRead > 0)
             {

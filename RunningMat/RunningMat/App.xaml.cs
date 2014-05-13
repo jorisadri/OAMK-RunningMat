@@ -25,6 +25,11 @@ namespace RunningMat
         public static ControlTreadmill Steering = new ControlTreadmill();
         public static ControlTreadmill controltreadmill = new ControlTreadmill();
         public static Calibrate calibrating = new Calibrate();
+        public static UDPReceiver PhoneConnection = new UDPReceiver();
+        public static UIButtons UIController = new UIButtons();
+        public  enum Choise { Run, MakeAngle, Test };
+        public  enum PlayState { Start, Stop, Pauze, Load };
+        
 
         public static bool Shutdown=false;
 

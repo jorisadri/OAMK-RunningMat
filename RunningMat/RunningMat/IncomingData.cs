@@ -52,48 +52,23 @@ namespace RunningMat
        public void GetDataX()
         {
            
- 	       USB1.AIn(XChannelin, MccDaq.Range.Bip5Volts, out OutDataValueX);
-           USB1.ToEngUnits(MccDaq.Range.Bip5Volts, OutDataValueX, out OutDataValueEngUnitsX);
-           InputPotentiometerX = (OutDataValueEngUnitsX * 100)+95;
 
-           //App.DataPotentiometer.InputPotentiometerX = Map(App.DataPotentiometer.InputPotentiometerX, App.calibrating.Front, 0, 18.5, ((360 - App.calibrating.Front) * (37 / 562)));
-           //if (App.DataPotentiometer.InputPotentiometerX > App.calibrating.Front)
-           //{
-           //    App.DataPotentiometer.InputPotentiometerX = Map(App.DataPotentiometer.InputPotentiometerX , App.calibrating.Front, 360, ((App.calibrating.Front - 360) * (37 / 600)), ((360 - App.calibrating.Front) * (37 / 600)));
-           //}
-
-           //for (int i = 1; i < LastRecorded.Length; i++)
-           //{
-           //    LastRecorded[i - 1] = LastRecorded[i];
-           //}
-           //LastRecorded[LastRecorded.Length-1] = InputPotentiometerX;
-           
-
-           
+                USB1.AIn(XChannelin, MccDaq.Range.Bip5Volts, out OutDataValueX);
+                USB1.ToEngUnits(MccDaq.Range.Bip5Volts, OutDataValueX, out OutDataValueEngUnitsX);
+                InputPotentiometerX = (OutDataValueEngUnitsX * 100) + 95;
 
 
-           //if (LastRecorded.Average() > PotentiometerValue)
-           //    up = -1;
-    
-           //else if (LastRecorded.Average() < PotentiometerValue)
-           //    up = 1;
+                if (InputPotentiometerX >= 190)
+                {
+                    InputPotentiometerX = Map(InputPotentiometerX, 190, 360, 0, 10.2);
+                }
 
-           //else
-           //    up = 0;
+                else if (InputPotentiometerX < 190)
+                {
+                    InputPotentiometerX = Map(InputPotentiometerX, 190, 0, 0, -12.4);
+                }
 
-
-      
-           if (InputPotentiometerX>=190)
-           {
-               InputPotentiometerX = Map(InputPotentiometerX, 190, 360, 0, 10.2);
-           }
-
-           else if (InputPotentiometerX< 190)
-           {
-                 InputPotentiometerX = Map(InputPotentiometerX, 190, 0, 0,-12.4 );
-           }
-
-          
+            
         }
 
 
@@ -117,6 +92,7 @@ namespace RunningMat
 
        public void GetDataY()
        {
+            
            USB1.AIn(YChannelin, MccDaq.Range.Bip5Volts, out OutDataValueY);
            USB1.ToEngUnits(MccDaq.Range.Bip5Volts, OutDataValueY, out OutDataValueEngUnitsY);
            InputPotentiometerY = OutDataValueEngUnitsY * 100;
@@ -131,17 +107,10 @@ namespace RunningMat
                InputPotentiometerY = Map(InputPotentiometerY, 62.5, 73, 6, 0);
            }
        
-
-           //if (InputPotentiometerY > 76)
-           //{
-           //    InputPotentiometerY = Map(InputPotentiometerY, 76, 88, 0, -6);
-           //}
-
-           //else if (InputPotentiometerY<=76)
-           //{
-           //    InputPotentiometerY = Map(InputPotentiometerY, 76, 68, 0, 6);
-           //}
+       
        }
+   
+   
         
     }
 }

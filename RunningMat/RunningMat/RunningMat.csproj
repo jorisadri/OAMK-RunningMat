@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AviFile">
+      <HintPath>C:\Users\Public\Documents\Sensor Ex Client Dlls\AviFile.dll</HintPath>
+    </Reference>
     <Reference Include="DynamicDataDisplay">
       <HintPath>..\packages\DynamicDataDisplay.0.3.0.1\lib\net45\DynamicDataDisplay.dll</HintPath>
     </Reference>
@@ -48,6 +51,12 @@
     </Reference>
     <Reference Include="MSChartWrapper">
       <HintPath>..\packages\MSChartWrapper.1.0.0.1\lib\MSChartWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>C:\Users\Public\Documents\Sensor Ex Client Dlls\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="Sensor Ex Client">
+      <HintPath>C:\Users\Public\Documents\Sensor Ex Client Dlls\Sensor Ex Client.dll</HintPath>
     </Reference>
     <Reference Include="Sparrow.Chart.Wpf.40">
       <HintPath>..\packages\Sparrow.Chart.Wpf.13.1.0.117\lib\net40\Sparrow.Chart.Wpf.40.dll</HintPath>
@@ -106,8 +115,9 @@
     <Compile Include="ExcelAngleData.cs" />
     <Compile Include="IncomingData.cs" />
     <Compile Include="BaseClass.cs" />
-    <Compile Include="SensorEmitterServer.cs" />
     <Compile Include="Speed.cs" />
+    <Compile Include="UDPReceiver.cs" />
+    <Compile Include="UIButtons.cs" />
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>
     </Compile>

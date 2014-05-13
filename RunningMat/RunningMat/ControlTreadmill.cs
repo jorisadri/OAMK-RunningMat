@@ -11,9 +11,7 @@ namespace RunningMat
 {
    public class ControlTreadmill:BaseClass
     {
-        int TimeNowX;
-       // double LasTimeX;
-       // double TimechangeX;
+        
         int XChannel = 0;
         int YChannel = 1;
         ushort XMotorControlerFreq = 65500;
@@ -23,7 +21,8 @@ namespace RunningMat
         public bool Stop = false;
         double TimeStampX;
         int Position;
-        public  bool Test=false;
+        
+        
 
         MccDaq.DigitalPortDirection PortDirection = MccDaq.DigitalPortDirection.DigitalOut;
       
@@ -44,14 +43,58 @@ namespace RunningMat
         public double TestSliderX
         {
             get { return _testsliderX; }
-            set { _testsliderX = value; RaisePropChanged("TestSliderX"); }
+            set {
+                _testsliderX = value; RaisePropChanged("TestSliderX");
+
+                if (App.UIController.choise==App.Choise.Test)
+                {
+                    App.Excel.XAngle = TestSliderX.ToString();
+                }
+                }
         }
 
         private double _testsliderY = 0.0;
         public double TestSliderY
         {
             get { return _testsliderY; }
-            set { _testsliderY = value; RaisePropChanged("TestSliderY"); }
+            set { _testsliderY = value; RaisePropChanged("TestSliderY");
+            if (App.UIController.choise == App.Choise.Test)
+            {
+                App.Excel.YAngle = TestSliderY.ToString();
+            }
+            }
+        }
+
+
+        private bool _check = true;
+        public bool Check
+        {
+            get { return _check; }
+            set {
+                if (value==false&&App.PhoneConnection.started )
+                {
+                     _check = value; RaisePropChanged("Check");
+                     FCheck = true;
+                }
+                else 
+                {
+                    MessageBox.Show("No connection from phone \nOpen SensorUDP on android. Use this IP:" + App.PhoneConnection.LocalIPAddress() + " The port number is:" + App.PhoneConnection.port + "\nSelect Orientation and select Network");
+                    _check = true; RaisePropChanged("Check");
+                    FCheck = false;
+                }
+               
+                }
+        }
+
+        private bool _fcheck;
+        public bool FCheck
+        {
+            get { return _fcheck; }
+            set
+            {
+                _fcheck = value; RaisePropChanged("FCheck");
+
+            }
         }
 
         public ControlTreadmill()
@@ -82,39 +125,45 @@ namespace RunningMat
         void MotorController_DoWork(object sender, DoWorkEventArgs e)
         {
 
-            App.DataPotentiometer.GetDataX();
-            App.DataPotentiometer.GetDataY();
-
-            if (Test)
+            if (Check)
             {
-                if (TestSliderX > App.DataPotentiometer.InputPotentiometerX - 2)
-                {
-                    ForwardX();
-                }
+                App.DataPotentiometer.GetDataX();
+                App.DataPotentiometer.GetDataY();
+            }
+           
 
-                else if (TestSliderX < App.DataPotentiometer.InputPotentiometerX + 2)
-                {
-                    BackwardX();
-
-                }
-
-                else
-                    MotorStopPitch();
+             if (App.UIController.choise==App.Choise.Test)
+            {
 
 
-                if (TestSliderY < App.DataPotentiometer.InputPotentiometerY -1)
-                {
-                    RighY();
-                }
+                 if (TestSliderX > App.DataPotentiometer.InputPotentiometerX - 2)
+                    {
+                        ForwardX();
+                    }
 
-                else if (TestSliderY > App.DataPotentiometer.InputPotentiometerY +1)
-                {
-                    LeftY();
+                    else if (TestSliderX < App.DataPotentiometer.InputPotentiometerX + 2)
+                    {
+                        BackwardX();
 
-                }
+                    }
 
-                else
-                    MotorStopRoll(); 
+                    else
+                        MotorStopPitch();
+
+
+                    if (TestSliderY < App.DataPotentiometer.InputPotentiometerY - 1)
+                    {
+                        RighY();
+                    }
+
+                    else if (TestSliderY > App.DataPotentiometer.InputPotentiometerY + 1)
+                    {
+                        LeftY();
+
+                    }
+
+                    else
+                        MotorStopRoll(); 
 
             }
 
@@ -126,32 +175,34 @@ namespace RunningMat
 
                 Position = Convert.ToInt32(TimeStampX / (1000 / Convert.ToDouble(App.Excel.SampleFrequentie)));
 
-                App.Excel.XAngle = App.Excel.xlInfo[0, Position];
-                App.Excel.YAngle = App.Excel.xlInfo[1, Position];
+               
+
+                    App.Excel.XAngle = App.Excel.xlInfo[0, Position];
+                    App.Excel.YAngle = App.Excel.xlInfo[1, Position];
 
 
-                if (Convert.ToDouble(App.Excel.XAngle) < App.DataPotentiometer.InputPotentiometerX - 2)
-                    BackwardX();
+                    if (Convert.ToDouble(App.Excel.XAngle) < App.DataPotentiometer.InputPotentiometerX - 2)
+                        BackwardX();
 
-                else if (Convert.ToDouble(App.Excel.XAngle) > App.DataPotentiometer.InputPotentiometerX + 2)
-                    ForwardX();
+                    else if (Convert.ToDouble(App.Excel.XAngle) > App.DataPotentiometer.InputPotentiometerX + 2)
+                        ForwardX();
 
-                else
-                    MotorStopPitch();
-
-
-                if (Convert.ToDouble(App.Excel.YAngle) < App.DataPotentiometer.InputPotentiometerY - 1)
-                    RighY();
+                    else
+                        MotorStopPitch();
 
 
-                else if (Convert.ToDouble(App.Excel.YAngle) > App.DataPotentiometer.InputPotentiometerY + 1)
-                    LeftY();
-
-                else
-                    MotorStopRoll();
+                    if (Convert.ToDouble(App.Excel.YAngle) < App.DataPotentiometer.InputPotentiometerY - 1)
+                        RighY();
 
 
-            }
+                    else if (Convert.ToDouble(App.Excel.YAngle) > App.DataPotentiometer.InputPotentiometerY + 1)
+                        LeftY();
+
+                    else
+                        MotorStopRoll();
+                }
+
+        
         }
 
        

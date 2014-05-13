@@ -122,7 +122,6 @@ C:\Users\maasto\Documents\GitHub\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
-\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csprojResolveAssemblyReference.cache
 C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\bin\Debug\RunningMat.exe.config
 C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\obj\Debug\Interop.AXVLC.dll
 C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\obj\Debug\AxInterop.AXVLC.dll
@@ -178,3 +177,7 @@ C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\obj\Debug\Runni
 C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.Properties.Resources.resources
 C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.UserControl1.resources
 C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csproj.GenerateResource.Cache
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\AviFile.dll
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\NAudio.dll
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\Sensor Ex Client.dll
+\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csprojResolveAssemblyReference.cache
