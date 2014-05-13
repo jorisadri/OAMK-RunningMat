@@ -28,7 +28,6 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"  Margin="0,0,0,50">
                 <Button x:Name="MakeAngleData"  Content="Make Angle Data" Click="MakeAngleData_Click"/>
-                <Button Margin="10,0,0,0">Safe</Button>
                 </StackPanel>
                 <TextBlock Margin="0,0,0,5" >Controll system</TextBlock>
                 <RadioButton x:Name="ControllsystemPot"  IsChecked="{Binding Check, Mode=TwoWay}" Content="Potentiometers" />

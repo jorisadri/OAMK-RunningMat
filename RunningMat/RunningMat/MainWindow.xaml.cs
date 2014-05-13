@@ -176,6 +176,7 @@ namespace RunningMat
             Start.IsEnabled = true;
             Pause.IsEnabled = false;
             Stop.IsEnabled = false;
+            
           
             
             
@@ -194,6 +195,9 @@ namespace RunningMat
 
             
         }
+
+       
+      
 
 
 

@@ -14,9 +14,8 @@ namespace RunningMat
        
         int XChannelin = 0;
         int YChannelin = 1;
-        int count = 0;
-        double average;
-        int up = 0;
+       
+        
 
         short OutDataValueY;
         float OutDataValueEngUnitsY;
@@ -24,7 +23,6 @@ namespace RunningMat
         short OutDataValueX;
         float OutDataValueEngUnitsX;
 
-        double PotentiometerValue;
         double[] LastRecorded; 
       //  MccDaq.Range TheRange;
 

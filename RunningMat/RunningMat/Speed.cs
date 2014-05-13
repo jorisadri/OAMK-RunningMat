@@ -40,7 +40,7 @@ namespace RunningMat
                 MessageBox.Show("No Arduino found with PNPDeviceID:64935343733351707252");
                 Arduino = false;
 
-               // Environment.Exit(-1);//Shutdown
+              
                 
             }
            
@@ -67,9 +67,9 @@ namespace RunningMat
                     }
                 }
             }
-            catch (ManagementException e)
+            catch 
             {
-                /* Do Nothing */
+                
             }
 
             return null;

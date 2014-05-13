@@ -16,10 +16,8 @@ namespace RunningMat
         private byte[] buffer;
         public int port = 12345;
         string Received;
-        double roll;
-        double pitch;
         public bool started = false;
-        int index;
+        
 
         string[] seperator = new string[] { ", " };
         

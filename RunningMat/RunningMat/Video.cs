@@ -57,6 +57,7 @@ namespace RunningMat
         {
             App.Excel.PhoneAngletimer.Stop();
             App.Excel.Safe();
+            MessageBox.Show("File is Safed");
         }
 
         void _movie_MediaOpened(object sender, System.Windows.RoutedEventArgs e)
