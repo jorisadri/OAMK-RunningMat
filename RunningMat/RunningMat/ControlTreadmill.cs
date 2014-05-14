@@ -136,6 +136,8 @@ namespace RunningMat
         void MotorController_DoWork(object sender, DoWorkEventArgs e)
         {
 
+            App.DataPotentiometer.SafeTrigger();
+
             if (Check)
             {
                 App.DataPotentiometer.GetDataX();

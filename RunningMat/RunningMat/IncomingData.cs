@@ -11,6 +11,8 @@ namespace RunningMat
    public class IncomingData:BaseClass
     {
         private MccDaq.MccBoard USB1 = new MccDaq.MccBoard(0);
+        MccDaq.DigitalLogicState triggerX = new MccDaq.DigitalLogicState();
+        MccDaq.DigitalLogicState triggerY = new MccDaq.DigitalLogicState();
        
         int XChannelin = 0;
         int YChannelin = 1;
@@ -43,6 +45,8 @@ namespace RunningMat
         public IncomingData()
         {   
             LastRecorded= new double[10];
+            USB1.DConfigPort(MccDaq.DigitalPortType.FifthPortA, MccDaq.DigitalPortDirection.DigitalIn);
+            USB1.DConfigPort(MccDaq.DigitalPortType.FifthPortA, MccDaq.DigitalPortDirection.DigitalIn);
             
         }
 
@@ -72,18 +76,20 @@ namespace RunningMat
 
         public void SafeTrigger()
         {
-            MccDaq.DigitalLogicState triggerX = new MccDaq.DigitalLogicState() ;
-            MccDaq.DigitalLogicState triggerY = new MccDaq.DigitalLogicState();
+
             USB1.DConfigPort(MccDaq.DigitalPortType.FifthPortA, MccDaq.DigitalPortDirection.DigitalIn);
+            
             USB1.DBitIn(MccDaq.DigitalPortType.FifthPortA,0 ,out triggerX);
 
+
             USB1.DConfigPort(MccDaq.DigitalPortType.FifthPortA, MccDaq.DigitalPortDirection.DigitalIn);
+           
             USB1.DBitIn(MccDaq.DigitalPortType.FifthPortA, 1, out triggerY);
 
-            //if (triggerX==0||triggerY==0)
-            //{
-            //    App.controltreadmill.MotorStop();
-            //}
+            if (triggerX <= 0 || triggerY <= 0)
+            {
+               
+            }
 
 
         }
