@@ -10,14 +10,16 @@ using System.Management;
 using System.Windows;
 namespace RunningMat
 {
-   public class Speed:BaseClass
+    public class Speed : BaseClass
     {
+        //serialport and timer for get the values from arduino
         public DispatcherTimer GetSpeedTimer;
         public System.IO.Ports.SerialPort SerialPortArduino;
         string ReadString;
         public bool Arduino = false;
         private double _speedKMH = 0;
-        public double SpeedKMH {
+        public double SpeedKMH
+        {
             get { return _speedKMH; }
             set { _speedKMH = value; RaisePropChanged("SpeedKMH"); }
         }
@@ -30,6 +32,7 @@ namespace RunningMat
                 GetSpeedTimer = new DispatcherTimer();
                 GetSpeedTimer.Interval = TimeSpan.FromMilliseconds(20);
                 GetSpeedTimer.Tick += GetSpeedTimer_Tick;
+                //checks if the correct arduino is connected
                 SerialPortArduino.PortName = AutodetectArduinoPort();
                 SerialPortArduino.Open();
                 Arduino = true;
@@ -39,16 +42,13 @@ namespace RunningMat
             {
                 MessageBox.Show("No Arduino found with PNPDeviceID:64935343733351707252");
                 Arduino = false;
-
-              
-                
             }
-           
-            
+
+
 
         }
-
-       private string AutodetectArduinoPort()
+        // to detect if the correct arduino is connected
+        private string AutodetectArduinoPort()
         {
             ManagementScope connectionScope = new ManagementScope();
             SelectQuery serialQuery = new SelectQuery("SELECT * FROM Win32_SerialPort");
@@ -58,45 +58,40 @@ namespace RunningMat
             {
                 foreach (ManagementObject item in searcher.Get())
                 {
+                    //safe COM port of arduino if arduino with PNPDeviceI: 64935343733351707252 is connected 
                     string desc = item["PNPDeviceID"].ToString();
                     string deviceId = item["DeviceID"].ToString();
 
                     if (desc.Contains("64935343733351707252"))
                     {
+                        Arduino = false;
                         return deviceId;
                     }
                 }
             }
-            catch 
+            catch
             {
-                
             }
-
             return null;
         }
-       
 
+        // read buffer serialport on COM from arduino when timer hits
         void GetSpeedTimer_Tick(object sender, EventArgs e)
         {
-         
+            
             int IndexOfNonNummeric = -1;
             if (SerialPortArduino.BytesToRead > 0)
             {
                 ReadString = SerialPortArduino.ReadExisting();
-
-                for (int i = 0; i < ReadString.Length-1; i++)
+                //checks if string is valid
+                for (int i = 0; i < ReadString.Length - 1; i++)
                 {
                     if (!Char.IsDigit(ReadString.ElementAtOrDefault(i)))
-                    {
                         IndexOfNonNummeric = i;
-                    }
-                    
                 }
-
                 if (IndexOfNonNummeric > -1)
-                {
                     ReadString = ReadString.Substring(0, IndexOfNonNummeric);
-                }
+
                 if (ReadString.Length > 0)
                 {
                     try
@@ -105,24 +100,17 @@ namespace RunningMat
                         {
                             SpeedKMH = Convert.ToInt32(ReadString);
                             SpeedKMH = ((SpeedKMH / 100) * 3.052);
-
-
                             SpeedKMH = Math.Round(SpeedKMH, 1);
-
+                            //if threadmill has speed of 3 the movie plays on normal speed
                             App.VLCVideo.FrameRate = SpeedKMH / 3;
                         }
-
                         else
                             App.VLCVideo.FrameRate = 1.0;
-                       
-                       
                     }
                     catch (Exception)
                     {
-                        
-                        
                     }
-                   
+
                 }
             }
         }

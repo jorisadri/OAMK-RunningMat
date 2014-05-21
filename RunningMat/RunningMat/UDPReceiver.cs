@@ -8,53 +8,93 @@ using System.Net.Sockets;
 
 namespace RunningMat
 {
-   public  class UDPReceiver:BaseClass
+    public class UDPReceiver : BaseClass
     {
 
         //http://acrocontext.wordpress.com/2013/08/15/c-simple-udp-listener-in-asynchronous-way/
+        //the socket itself
         private Socket udpSock;
+        // buffer is used to hold the incoming data
         private byte[] buffer;
+        //port for connection. Max port number is 65535
         public int port = 12345;
         string Received;
+        //bool to check if there is phoneconnection
         public bool started = false;
-        
-
+        //used to split the message apart
         string[] seperator = new string[] { ", " };
-        
-    
+        // The number for max angles
+        int clipPitch = 10;
+        int clipRoll = 6;
 
+        //
         private double _phonepitch = 0.0;
         public double PhonePitch
         {
             get { return _phonepitch; }
-            set { _phonepitch = value; RaisePropChanged("PhonePitch");
-            if (App.UIController.choise == App.Choise.MakeAngle||App.controltreadmill.FCheck)
+            set
             {
-                App.DataPotentiometer.InputPotentiometerX = PhonePitch;
-            }
-            
-            }
-        }
+                if (App.controltreadmill.FCheck && App.UIController.choise != App.Choise.MakeAngle)
+                {
+                    _phonepitch = value;
+                    App.DataPotentiometer.InputPotentiometerX = PhonePitch;
+                }
+                else
+                {
+                    _phonepitch = value / 2.5;
+                    if (_phonepitch < clipPitch && _phonepitch > -clipPitch)
+                    { }
 
-        public UDPReceiver()
-        {
-            Starter();
+                    else
+                    {
+                        if (_phonepitch > clipPitch)
+                            _phonepitch = clipPitch;
+
+                        else if (_phonepitch < -clipPitch)
+                            _phonepitch = -clipPitch;
+                    }
+                }
+                RaisePropChanged("PhonePitch");
+            }
         }
 
         private double _phoneroll = 0.0;
         public double PhoneRoll
         {
             get { return _phoneroll; }
-            set { _phoneroll = value; RaisePropChanged("PhoneRoll");
-            if (App.UIController.choise == App.Choise.MakeAngle||App.controltreadmill.FCheck)
+            set
             {
-                App.DataPotentiometer.InputPotentiometerY = PhoneRoll;
-            }
+                if (App.controltreadmill.FCheck && App.UIController.choise != App.Choise.MakeAngle)
+                {
+                    _phoneroll = value;
+                    App.DataPotentiometer.InputPotentiometerY = PhoneRoll;
+                }
+                else
+                {
+                    _phoneroll = value / 2.5;
+                    if (_phoneroll < clipRoll && _phoneroll > -clipRoll)
+                    { }
+                    else
+                    {
+                        if (_phoneroll> clipRoll)
+                            _phoneroll = clipRoll;
+
+                        else if (_phoneroll < -clipRoll)
+                            _phoneroll = -clipRoll;
+                    }
+                }
+                RaisePropChanged("PhoneRoll");
             }
         }
+
+        public UDPReceiver()
+        {
+            // start listening for new data by starting the application
+            Starter();
+        }
+
         public void Starter()
         {
-
             //Setup the socket and message buffer
             udpSock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             udpSock.Bind(new IPEndPoint(IPAddress.Any, port));
@@ -63,8 +103,6 @@ namespace RunningMat
             //Start listening for a new message.
             EndPoint newClientEP = new IPEndPoint(IPAddress.Any, 0);
             udpSock.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref newClientEP, DoReceiveFrom, udpSock);
-            
-            
         }
 
         private void DoReceiveFrom(IAsyncResult iar)
@@ -83,104 +121,25 @@ namespace RunningMat
                 udpSock.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref newClientEP, DoReceiveFrom, udpSock);
 
                 //Handle the received message
-                Received=Encoding.ASCII.GetString(localMsg,0, localMsg.Length);
-
-
+                Received = Encoding.ASCII.GetString(localMsg, 0, localMsg.Length);
                 string[] ArrayReveive = Received.Split(seperator, StringSplitOptions.RemoveEmptyEntries);
-               
-
-                if (App.controltreadmill.FCheck)
+                if (ArrayReveive[0] == "O")
                 {
-
-                    if (ArrayReveive[0] == "O")
-                    {
-                        // if error here use this
-                        //PhonePitch = Convert.ToDouble( ArrayReveive[index+4].Replace(',', '.'));
-                        //PhoneRoll = Convert.ToDouble(ArrayReveive[index+5].Replace(',', '.'));
-
-                        if (Convert.ToDouble(ArrayReveive[4]) > 10)
-                        {
-                            PhonePitch = 10;
-                        }
-
-                        else if (Convert.ToDouble(ArrayReveive[4]) < -10)
-                        {
-                            PhonePitch = -10;
-                        }
-
-                        else
-                        {
-                            PhonePitch = Convert.ToDouble(ArrayReveive[4]);
-                            PhoneRoll = Convert.ToDouble(ArrayReveive[5]);
-                        }
-
-                        if ( Convert.ToDouble(ArrayReveive[5])>6)
-                        {
-                            PhoneRoll = 6;
-                        }
-
-                        else if (Convert.ToDouble(ArrayReveive[5])<-6)
-                        {
-                            PhoneRoll = -6;
-                        }
-
-                        else
-                        PhoneRoll = Convert.ToDouble(ArrayReveive[5]);
-                        
-                    }
-                }
-                else
-                {
-                    if (ArrayReveive[0] == "O")
-                    {
-                        // if error here use this
-                        //PhonePitch = Convert.ToDouble( ArrayReveive[index+4].Replace(',', '.'))/2,5;
-                        //PhoneRoll = Convert.ToDouble(ArrayReveive[index+5].Replace(',', '.'))2,5;
-                        if (Convert.ToDouble(ArrayReveive[4]) / 2.5>10)
-                        {
-                            PhonePitch = 10;
-                        }
-
-                        else if (Convert.ToDouble(ArrayReveive[4]) / 2.5 < -10)
-                        {
-                            PhonePitch = -10;
-                        }
-
-                        else
-                        {
-                            PhonePitch = Convert.ToDouble(ArrayReveive[4]) / 2.5;
-                            
-                        }
-
-                        if (Convert.ToDouble(ArrayReveive[5]) > 6)
-                        {
-                            PhoneRoll = 6;
-                        }
-
-                        else if (Convert.ToDouble(ArrayReveive[5]) < -6)
-                        {
-                            PhoneRoll = -6;
-                        }
-
-                        else
-                        {
-                            PhoneRoll = Convert.ToDouble(ArrayReveive[5]) / 2.5;
-                        }
-                    }
+                    // if error here use this
+                    PhonePitch = Convert.ToDouble(ArrayReveive[4].Replace(',', '.'));
+                    PhoneRoll = Convert.ToDouble(ArrayReveive[5].Replace(',', '.'));
+                    //PhonePitch = Convert.ToDouble(ArrayReveive[4]);
+                    //PhoneRoll = Convert.ToDouble(ArrayReveive[5]);
                 }
                 started = true;
-                
             }
             catch (ObjectDisposedException)
             {
                 started = false;
-                //expected termination exception on a closed socket.
-                // ...I'm open to suggestions on a better way of doing this.
             }
         }
-
-
         //http://stackoverflow.com/questions/6803073/get-local-ip-address-c-sharp
+        //get the Local ip for show in messagebox
         public string LocalIPAddress()
         {
             IPHostEntry host;
@@ -196,6 +155,5 @@ namespace RunningMat
             }
             return localIP;
         }
-
     }
 }

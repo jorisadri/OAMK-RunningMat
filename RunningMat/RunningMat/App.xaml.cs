@@ -24,7 +24,6 @@ namespace RunningMat
         public static Speed SpeedTreadmill = new Speed();
         public static ControlTreadmill Steering = new ControlTreadmill();
         public static ControlTreadmill controltreadmill = new ControlTreadmill();
-        public static Calibrate calibrating = new Calibrate();
         public static UDPReceiver PhoneConnection = new UDPReceiver();
         public static UIButtons UIController = new UIButtons();
         public  enum Choise { Run, MakeAngle, Test };
@@ -36,23 +35,14 @@ namespace RunningMat
 
         public App()
         {
-            
             Updater.Interval = TimeSpan.FromMilliseconds(1000);
-            Updater.Tick += Updater_Tick;
-            
-
-
-          // MotorUpdate.Interval = TimeSpan.FromMilliseconds(30); //i took this time because of the sample rate
-          
-           
+            Updater.Tick += Updater_Tick;          
         }
       
 
         void Updater_Tick(object sender, EventArgs e)
         {
-
             Shutdown = true;
-
         }
 
       

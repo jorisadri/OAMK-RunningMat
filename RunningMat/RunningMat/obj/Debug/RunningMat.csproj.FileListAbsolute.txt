@@ -62,7 +62,6 @@ C:\Users\joris\AppData\Roaming\Local Libraries\Local Documents\Visual Studio 201
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat_MarkupCompile.cache
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.g.resources
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.Properties.Resources.resources
-\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.UserControl1.resources
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csproj.GenerateResource.Cache
 C:\Users\maasto\Documents\GitHub\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\RunningMat.exe.config
 C:\Users\maasto\Documents\GitHub\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\Interop.AXVLC.dll
@@ -180,5 +179,4 @@ C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\obj\Debug\Runni
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\AviFile.dll
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\NAudio.dll
 \\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\bin\Debug\Sensor Ex Client.dll
-\\psf\Dropbox\RunningMat\OAMK-RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csprojResolveAssemblyReference.cache
 C:\Users\maasto\Documents\repos\RunningMat\RunningMat\RunningMat\obj\Debug\RunningMat.csprojResolveAssemblyReference.cache

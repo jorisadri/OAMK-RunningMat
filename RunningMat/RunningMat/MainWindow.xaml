@@ -14,7 +14,6 @@
                 <ColumnDefinition Width="36*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Margin="40">
-                <Button x:Name="LoadData" Margin="0,0,0,10" Content="Load data" Click="LoadData_Click"/>
                 <Button  x:Name="Start" Margin="0,0,0,10"  Content="Start" Click="Start_Click" />
                 <Button x:Name="Pause" Margin="0,0,0,10" Content="Pause" Click="Pause_Click" />
                 <Button x:Name="Stop"  Margin="0,0,0,20" Content="Stop" Click="Stop_Click" />
@@ -23,15 +22,16 @@
                 <TextBlock x:Name="FrameRate">FrameRate</TextBlock>
                 <Slider Value="{Binding FrameRate, Mode=TwoWay}" x:Name="SpeedVideo" Maximum="3"/>
                 <StackPanel  Margin="0,0,0,20" Orientation="Horizontal" HorizontalAlignment="Right" Width="150">
-                <TextBox x:Name="Multiplier" Height="23" Width="auto" Text="{Binding FrameRate, Mode=TwoWay, StringFormat=N2}" TextWrapping="Wrap" />
-                <TextBox x:Name="Frames" Height="23" Width="auto" Text="X  times the Videospeed" TextWrapping="Wrap"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"  Margin="0,0,0,50">
-                <Button x:Name="MakeAngleData"  Content="Make Angle Data" Click="MakeAngleData_Click"/>
+                    <TextBlock x:Name="Multiplier" Height="23" Width="auto" Text="{Binding FrameRate, Mode=TwoWay, StringFormat=N2}" TextWrapping="Wrap" />
+                    <TextBlock x:Name="Frames" Height="23" Width="auto" Text=" X  times the Videospeed" TextWrapping="Wrap"/>
                 </StackPanel>
                 <TextBlock Margin="0,0,0,5" >Controll system</TextBlock>
                 <RadioButton x:Name="ControllsystemPot"  IsChecked="{Binding Check, Mode=TwoWay}" Content="Potentiometers" />
-                <RadioButton x:Name="ControllsystemPhone"  IsChecked="{Binding FCheck, Mode=OneWay}" Content="Phone"/>
+                <RadioButton Margin="0,0,0,20" x:Name="ControllsystemPhone"  IsChecked="{Binding FCheck, Mode=OneWay}" Content="Phone"/>
+                <TextBlock Margin="0,0,0,5" ><Run Text="Functions"/></TextBlock>
+                <Button x:Name="LoadData" Margin="0,0,0,5" Content="I want to run" Click="LoadData_Click"/>
+                <Button x:Name="MakeAngleData" Margin="0,0,0,5"  Content="Make Angle Data" Click="MakeAngleData_Click"/>
+                <Button x:Name="Test" Content="Test"    Click="Test_Click" />
             </StackPanel>
             <ContentControl x:Name="Film" Grid.Column="1" Content="{Binding Movie}" ></ContentControl>
             <!--<MediaElement x:Name="Movie" Grid.Column="1" LoadedBehavior="Manual" Source="{Binding VideoFile}"  HorizontalAlignment="Center"  VerticalAlignment="Center" />-->
@@ -44,13 +44,16 @@
         <TextBlock HorizontalAlignment="Left" Margin="509,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Go to YAngle" VerticalAlignment="Top"/>
         <TextBlock x:Name="XAngle" HorizontalAlignment="Left" Margin="622,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding XAngle}" VerticalAlignment="Top"/>
         <TextBlock x:Name="YAngle" HorizontalAlignment="Left" Margin="622,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding YAngle}" VerticalAlignment="Top"/>
-        <TextBlock x:Name="speed" HorizontalAlignment="Left" Margin="820,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding SpeedKMH}" VerticalAlignment="Top"/>
+        <TextBlock x:Name="speed" HorizontalAlignment="Left" Margin="803,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding SpeedKMH}" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="751,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Speed" VerticalAlignment="Top"/>
-        <Slider x:Name="testsliderX" HorizontalAlignment="Left"  Margin="389,137,0,0" Grid.Row="1" VerticalAlignment="Top" Width="305" Value="{Binding TestSliderX, StringFormat=2N}" LargeChange="0.1" Minimum="-12" Maximum="10"/>
+        <Slider x:Name="testsliderX" HorizontalAlignment="Left"  Margin="389,137,0,0" Grid.Row="1" VerticalAlignment="Top" Width="305" Value="{Binding TestSliderX, StringFormat=2N}" LargeChange="0.1" Minimum="-10" Maximum="10"/>
         <Slider x:Name="testsliderY" HorizontalAlignment="Left" Margin="389,184,0,0" Grid.Row="1" VerticalAlignment="Top" Width="305" Value="{Binding TestSliderY, StringFormat=2N}" LargeChange="0.1" Minimum="-6" Maximum="6"/>
-        <Button x:Name="Test" Content="Test" HorizontalAlignment="Left" Margin="728,137,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Test_Click" />
-        <TextBlock x:Name="Pitch" HorizontalAlignment="Left" Margin="894,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding PhonePitch}" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Roll" HorizontalAlignment="Left" Margin="894,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding PhoneRoll}" VerticalAlignment="Top"/>
+
+        <TextBlock x:Name="Pitch" HorizontalAlignment="Left" Margin="932,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding PhonePitch}" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Roll" HorizontalAlignment="Left" Margin="932,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding PhoneRoll}" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="861,49,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Pitch Phone" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="861,94,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Roll Phone" VerticalAlignment="Top"/>
+
 
 
         <!--<chartingToolkit:Chart Name="lineChart" Title="Power Graph" Background="YellowGreen" 
