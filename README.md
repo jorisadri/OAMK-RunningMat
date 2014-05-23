@@ -9,6 +9,7 @@ The program is made in WPF, it was originally written in Visual basic.
 Work in progress: 
                   Safetrigger controll,
                   angledata visualisation, 
+                  full screen exit
                   
 Done:         
                   videoplayback, 
