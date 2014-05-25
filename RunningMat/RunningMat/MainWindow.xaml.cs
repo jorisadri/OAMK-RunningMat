@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using AxAXVLC;
 using Microsoft.Win32;
 using ExcelLibrary;
 using ExcelLibrary.SpreadSheet;

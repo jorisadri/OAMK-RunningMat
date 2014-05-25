@@ -40,6 +40,10 @@ namespace RunningMat
                                 }
                             case App.PlayState.Start:
                                 {
+                                    if (!App.SpeedTreadmill.Arduino)
+                                    {
+                                        App.SpeedTreadmill.OpenArduino();
+                                    }
                                     if (App.VLCVideo.Movie.IsLoaded && !App.controltreadmill.MotorControllerX.IsBusy && App.SpeedTreadmill.Arduino)
                                     {
                                         App.VLCVideo.Movie.Play();
@@ -52,6 +56,10 @@ namespace RunningMat
                                         App.VLCVideo.Movie.Play();
                                         App.controltreadmill.Stop = false;
                                         App.controltreadmill.MotorControllerX.RunWorkerAsync();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("There is somethinge wrong");
                                     }
                                     break;
                                 }
@@ -79,7 +87,6 @@ namespace RunningMat
                     {
                         switch (status)
                         {
-
                             case App.PlayState.Load:
                                 {
                                     App.VLCVideo.Movie.Stop();
@@ -111,7 +118,7 @@ namespace RunningMat
                                         App.Excel.PhoneAngletimer.Start();
                                     }
                                     else
-                                        MessageBox.Show("No connection from phone Or video not selected \nOpen SensorUDP on android. Use this IP:" + App.PhoneConnection.LocalIPAddress() + " The port number is:" + App.PhoneConnection.port + "\nSelect Orientation and select Network");
+                                        MessageBox.Show("No connection from phone \nOpen SensorUDP on android. Use this IP:" + App.PhoneConnection.LocalIPAddress() + " The port number is:" + App.PhoneConnection.port + "\nSelect Orientation and select Network");
                                         
                                     break;
                                 }
@@ -125,7 +132,7 @@ namespace RunningMat
                                 {
                                     App.Excel.PhoneAngletimer.Stop();
                                     App.VLCVideo.Movie.Stop();
-                                    App.Excel.Safe();
+                                    App.Excel.counter = 0;
                                     break;
                                 }
                         }

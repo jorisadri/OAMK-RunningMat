@@ -94,8 +94,8 @@ namespace RunningMat
             }
         }
 
-        //function to safe excel 
-        public void Safe()
+        //function to save excel 
+        public void Save()
         {
             App.PhoneConnection.started = false;
             PhoneDataExcist = false;

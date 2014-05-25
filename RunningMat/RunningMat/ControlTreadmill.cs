@@ -15,7 +15,7 @@ namespace RunningMat
         int XChannel = 0;
         int YChannel = 1;
 
-        double LastInput;
+       
         // var for the location where the motor need to stop before reaching the asked location
         double WhereToStop = 1.3;
 

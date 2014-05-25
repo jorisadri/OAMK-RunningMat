@@ -17,7 +17,7 @@ namespace RunningMat
         public System.IO.Ports.SerialPort SerialPortArduino;
         string ReadString;
         public bool Arduino = false;
-        private double _speedKMH = 0;
+        private double _speedKMH = 3;
         public double SpeedKMH
         {
             get { return _speedKMH; }
@@ -25,6 +25,11 @@ namespace RunningMat
         }
 
         public Speed()
+        {
+            OpenArduino();
+        }
+
+        public void OpenArduino()
         {
             try
             {
@@ -40,12 +45,10 @@ namespace RunningMat
             }
             catch (Exception)
             {
-                MessageBox.Show("No Arduino found with PNPDeviceID:64935343733351707252");
+                MessageBox.Show("No Arduino found with PNPDeviceID:64935343733351707252 \nThe speed will be set to 3 Km/h");
                 Arduino = false;
             }
-
-
-
+            
         }
         // to detect if the correct arduino is connected
         private string AutodetectArduinoPort()
@@ -64,7 +67,6 @@ namespace RunningMat
 
                     if (desc.Contains("64935343733351707252"))
                     {
-                        Arduino = false;
                         return deviceId;
                     }
                 }

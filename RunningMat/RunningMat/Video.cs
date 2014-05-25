@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AxAXVLC;
-using AXVLC;
 using System.Threading;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -28,7 +26,14 @@ namespace RunningMat
         public double FrameRate
         {
             get { return _framerate; }
-            set { _framerate = value; _movie.SpeedRatio = FrameRate; RaisePropChanged("FrameRate"); }
+            set {
+                _framerate = value;
+                if (App.UIController.choise!=App.Choise.MakeAngle)
+                {
+                    _movie.SpeedRatio = FrameRate; 
+                }
+                RaisePropChanged("FrameRate"); 
+            }
         }
 
         public MediaElement Movie
@@ -52,7 +57,7 @@ namespace RunningMat
             if (App.UIController.choise == App.Choise.MakeAngle)
             {
                 App.Excel.PhoneAngletimer.Stop();
-                App.Excel.Safe();
+                App.Excel.Save();
                 App.Excel.counter = 0;
             }
             else
